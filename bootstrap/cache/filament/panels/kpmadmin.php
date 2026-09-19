@@ -42,7 +42,7 @@
   ),
   'pageDirectories' => 
   array (
-    0 => '/home/kpmgroup/public_html/app/Filament/Pages',
+    0 => 'C:\\Users\\Dewangga\\Downloads\\Compressed\\.well-known\\app\\Filament/Pages',
   ),
   'pageNamespaces' => 
   array (
@@ -50,14 +50,14 @@
   ),
   'resources' => 
   array (
-    '/home/kpmgroup/public_html/app/Filament/Resources/DivisionDocumentationResource.php' => 'App\\Filament\\Resources\\DivisionDocumentationResource',
-    '/home/kpmgroup/public_html/app/Filament/Resources/DocumentResource.php' => 'App\\Filament\\Resources\\DocumentResource',
-    '/home/kpmgroup/public_html/app/Filament/Resources/ServiceResource.php' => 'App\\Filament\\Resources\\ServiceResource',
-    '/home/kpmgroup/public_html/app/Filament/Resources/SiteSettingResource.php' => 'App\\Filament\\Resources\\SiteSettingResource',
+    'C:\\Users\\Dewangga\\Downloads\\Compressed\\.well-known\\app\\Filament\\Resources\\DivisionDocumentationResource.php' => 'App\\Filament\\Resources\\DivisionDocumentationResource',
+    'C:\\Users\\Dewangga\\Downloads\\Compressed\\.well-known\\app\\Filament\\Resources\\DocumentResource.php' => 'App\\Filament\\Resources\\DocumentResource',
+    'C:\\Users\\Dewangga\\Downloads\\Compressed\\.well-known\\app\\Filament\\Resources\\ServiceResource.php' => 'App\\Filament\\Resources\\ServiceResource',
+    'C:\\Users\\Dewangga\\Downloads\\Compressed\\.well-known\\app\\Filament\\Resources\\SiteSettingResource.php' => 'App\\Filament\\Resources\\SiteSettingResource',
   ),
   'resourceDirectories' => 
   array (
-    0 => '/home/kpmgroup/public_html/app/Filament/Resources',
+    0 => 'C:\\Users\\Dewangga\\Downloads\\Compressed\\.well-known\\app\\Filament/Resources',
   ),
   'resourceNamespaces' => 
   array (
@@ -65,14 +65,14 @@
   ),
   'widgets' => 
   array (
-    '/home/kpmgroup/public_html/app/Filament/Widgets/KpmStatsWidget.php' => 'App\\Filament\\Widgets\\KpmStatsWidget',
-    '/home/kpmgroup/public_html/app/Filament/Widgets/QuickLinksWidget.php' => 'App\\Filament\\Widgets\\QuickLinksWidget',
+    'C:\\Users\\Dewangga\\Downloads\\Compressed\\.well-known\\app\\Filament\\Widgets\\KpmStatsWidget.php' => 'App\\Filament\\Widgets\\KpmStatsWidget',
+    'C:\\Users\\Dewangga\\Downloads\\Compressed\\.well-known\\app\\Filament\\Widgets\\QuickLinksWidget.php' => 'App\\Filament\\Widgets\\QuickLinksWidget',
     0 => 'Filament\\Widgets\\AccountWidget',
     1 => 'Filament\\Widgets\\FilamentInfoWidget',
   ),
   'widgetDirectories' => 
   array (
-    0 => '/home/kpmgroup/public_html/app/Filament/Widgets',
+    0 => 'C:\\Users\\Dewangga\\Downloads\\Compressed\\.well-known\\app\\Filament/Widgets',
   ),
   'widgetNamespaces' => 
   array (

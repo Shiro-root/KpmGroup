@@ -1,7 +1,7 @@
 <?php return array (
   'heroicons' => 
   array (
-    '/home/kpmgroup/public_html/vendor/blade-ui-kit/blade-heroicons/src/../resources/svg' => 
+    'C:\\Users\\Dewangga\\Downloads\\Compressed\\.well-known\\vendor\\blade-ui-kit\\blade-heroicons\\src/../resources/svg' => 
     array (
       0 => 'c-academic-cap',
       1 => 'c-adjustments-horizontal',

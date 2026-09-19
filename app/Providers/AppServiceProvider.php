@@ -1,10 +1,11 @@
 <?php
+
 namespace App\Providers;
 
 use App\Models\SiteSetting;
 use Illuminate\Support\Facades\URL;
-use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -12,8 +13,8 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-        
-         require_once app_path('helpers.php');
+        require_once app_path('helpers.php');
+
         // Share company config to all views
         View::share('kpm', config('kpm', []));
 
@@ -21,8 +22,9 @@ class AppServiceProvider extends ServiceProvider
             URL::forceScheme('https');
         }
 
-        // Share SEO meta ke semua view — pakai composer agar fresh tiap request
-        View::composer('*', function ($view) {
+        // Share SEO meta — hanya untuk layout publik (BUKAN '*'),
+        // supaya tidak dieksekusi untuk ratusan view internal Filament.
+        View::composer('components.layouts.app', function ($view) {
             $view->with([
                 'seoTitle'       => SiteSetting::get('seo_title', 'KPM Group'),
                 'seoDescription' => SiteSetting::get('seo_description', 'KPM Group — Solusi terpadu Construction, Engineering, R&D, Farm & Procurement di Indonesia.'),

@@ -6,22 +6,22 @@
     <div class="mb-6 border-b border-gray-200 dark:border-white/10">
         <div class="flex overflow-x-auto gap-1 pb-px scrollbar-none">
             @foreach ([
-                        ['key' => 'home', 'label' => 'Halaman Home', 'icon' => 'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6'],
-                        ['key' => 'about', 'label' => 'Halaman About', 'icon' => 'M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z'],
-                        ['key' => 'services', 'label' => 'Halaman Services', 'icon' => 'M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01'],
-                        ['key' => 'contact', 'label' => 'Halaman Contact', 'icon' => 'M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z'],
-                        ['key' => 'seo', 'label' => 'SEO & Meta', 'icon' => 'M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'],
-                    ] as $tab)
-                    <button wire:click="$set('activeTab', '{{ $tab['key'] }}')"
-                        class="flex-shrink-0 flex items-center gap-2 px-4 py-2.5 text-sm font-medium border-b-2 transition-all duration-200 whitespace-nowrap
-                               {{ $activeTab === $tab['key']
-                ? 'border-amber-500 text-amber-600 dark:text-amber-400'
-                : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-amber-600 hover:border-amber-300' }}">
-                        <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="{{ $tab['icon'] }}" />
-                        </svg>
-                        <span>{{ $tab['label'] }}</span>
-                    </button>
+                ['key' => 'home', 'label' => 'Halaman Home', 'icon' => 'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6'],
+                ['key' => 'about', 'label' => 'Halaman About', 'icon' => 'M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z'],
+                ['key' => 'services', 'label' => 'Halaman Services', 'icon' => 'M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01'],
+                ['key' => 'contact', 'label' => 'Halaman Contact', 'icon' => 'M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z'],
+                ['key' => 'seo', 'label' => 'SEO & Meta', 'icon' => 'M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'],
+            ] as $tab)
+                <button wire:click="$set('activeTab', '{{ $tab['key'] }}')"
+                    class="flex-shrink-0 flex items-center gap-2 px-4 py-2.5 text-sm font-medium border-b-2 transition-all duration-200 whitespace-nowrap
+                           {{ $activeTab === $tab['key']
+                                ? 'border-amber-500 text-amber-600 dark:text-amber-400'
+                                : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-amber-600 hover:border-amber-300' }}">
+                    <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="{{ $tab['icon'] }}" />
+                    </svg>
+                    <span>{{ $tab['label'] }}</span>
+                </button>
             @endforeach
         </div>
     </div>
@@ -64,11 +64,11 @@
                 <x-slot name="heading">Stats Bar (Angka di Banner Emas)</x-slot>
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                     @foreach ([
-                            ['field' => 'home_stats_exp', 'label' => 'Tahun Pengalaman', 'placeholder' => '10+'],
-                            ['field' => 'home_stats_divisions', 'label' => 'Divisi Bisnis', 'placeholder' => '5'],
-                            ['field' => 'home_stats_projects', 'label' => 'Proyek Selesai', 'placeholder' => '50+'],
-                            ['field' => 'home_stats_team', 'label' => 'Tim Profesional', 'placeholder' => '100+'],
-                        ] as $stat)
+                        ['field' => 'home_stats_exp', 'label' => 'Tahun Pengalaman', 'placeholder' => '10+'],
+                        ['field' => 'home_stats_divisions', 'label' => 'Divisi Bisnis', 'placeholder' => '5'],
+                        ['field' => 'home_stats_projects', 'label' => 'Proyek Selesai', 'placeholder' => '50+'],
+                        ['field' => 'home_stats_team', 'label' => 'Tim Profesional', 'placeholder' => '100+'],
+                    ] as $stat)
                         <div>
                             <label
                                 class="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-1.5 uppercase tracking-wider">{{ $stat['label'] }}</label>
@@ -168,154 +168,7 @@
 
                     <hr class="border-dashed border-gray-200 dark:border-white/10">
 
-                    {{-- 3. SLIDE GAMBAR SECTION INTRO --}}
-                    <style>
-                        .kpm-slide-title {
-                            font-size: 11px;
-                            font-weight: 500;
-                            text-transform: uppercase;
-                            letter-spacing: .1em;
-                            color: #9ca3af;
-                            margin-bottom: 12px
-                        }
-
-                        .kpm-slide-title small {
-                            text-transform: none;
-                            letter-spacing: normal;
-                            font-weight: 400;
-                            margin-left: 4px
-                        }
-
-                        .kpm-slide-grid {
-                            display: grid;
-                            grid-template-columns: repeat(auto-fill, minmax(140px, 180px));
-                            gap: 12px;
-                            margin-bottom: 16px
-                        }
-
-                        .kpm-slide-card {
-                            display: flex;
-                            flex-direction: column;
-                            gap: 6px
-                        }
-
-                        .kpm-slide-thumb {
-                            position: relative;
-                            aspect-ratio: 4/3;
-                            border-radius: 8px;
-                            overflow: hidden;
-                            border: 1px solid #e5e7eb;
-                            background: #f3f4f6
-                        }
-
-                        .kpm-slide-thumb--new {
-                            border: 2px solid #fbbf24
-                        }
-
-                        .kpm-slide-thumb img {
-                            width: 100%;
-                            height: 100%;
-                            object-fit: cover;
-                            display: block
-                        }
-
-                        .kpm-slide-badge {
-                            position: absolute;
-                            top: 6px;
-                            left: 6px;
-                            font: 10px monospace;
-                            background: rgba(0, 0, 0, .6);
-                            color: #fff;
-                            padding: 2px 6px;
-                            border-radius: 4px
-                        }
-
-                        .kpm-slide-badge--new {
-                            background: #f59e0b
-                        }
-
-                        .kpm-slide-remove {
-                            width: 100%;
-                            padding: 4px 8px;
-                            font-size: 12px;
-                            color: #dc2626;
-                            background: transparent;
-                            border: 1px solid #fecaca;
-                            border-radius: 6px;
-                            cursor: pointer;
-                            transition: background .15s
-                        }
-
-                        .kpm-slide-remove:hover {
-                            background: #fef2f2
-                        }
-
-                        .kpm-slide-empty {
-                            grid-column: 1/-1;
-                            text-align: center;
-                            padding: 32px 0;
-                            font-size: 14px;
-                            color: #9ca3af;
-                            border: 1px dashed #e5e7eb;
-                            border-radius: 8px
-                        }
-
-                        .kpm-slide-upload {
-                            display: inline-flex;
-                            align-items: center;
-                            gap: 8px;
-                            padding: 10px 16px;
-                            font-size: 14px;
-                            font-weight: 500;
-                            color: #d97706;
-                            border: 1px dashed #fbbf24;
-                            border-radius: 8px;
-                            cursor: pointer;
-                            transition: background .15s
-                        }
-
-                        .kpm-slide-upload:hover {
-                            background: #fffbeb
-                        }
-
-                        .kpm-slide-hint {
-                            font-size: 12px;
-                            color: #9ca3af;
-                            margin-top: 8px
-                        }
-
-                        .dark .kpm-slide-thumb {
-                            border-color: rgba(255, 255, 255, .1);
-                            background: rgba(255, 255, 255, .05)
-                        }
-
-                        .dark .kpm-slide-thumb--new {
-                            border-color: #f59e0b
-                        }
-
-                        .dark .kpm-slide-remove {
-                            color: #f87171;
-                            border-color: rgba(248, 113, 113, .3)
-                        }
-
-                        .dark .kpm-slide-remove:hover {
-                            background: rgba(248, 113, 113, .1)
-                        }
-
-                        .dark .kpm-slide-empty {
-                            border-color: rgba(255, 255, 255, .1)
-                        }
-
-                        .dark .kpm-slide-upload {
-                            color: #fbbf24;
-                            border-color: rgba(251, 191, 36, .5)
-                        }
-
-                        .dark .kpm-slide-upload:hover {
-                            background: rgba(251, 191, 36, .1)
-                        }
-                    </style>
-
+                    {{-- 3. SLIDE GAMBAR SECTION INTRO (style .kpm-slide-* ada di filament-custom.css) --}}
                     <div>
                         <p class="kpm-slide-title">
                             Slide Gambar Section Intro
@@ -331,40 +184,42 @@
                                             decoding="async">
                                         <span class="kpm-slide-badge">#{{ $i + 1 }}</span>
                                     </div>
-                                    <x-filament::modal id="delete-intro-slide-{{ $i }}" icon="heroicon-o-exclamation-triangle" icon-color="danger" width="md">
-    
-    {{-- 1. Tombol Pemicu Modal --}}
-    <x-slot name="trigger">
-        <button type="button" class="kpm-slide-remove">
-            Hapus
-        </button>
-    </x-slot>
+                                    <x-filament::modal id="delete-intro-slide-{{ $i }}" icon="heroicon-o-exclamation-triangle"
+                                        icon-color="danger" width="md">
 
-    {{-- 2. Teks Konten Modal --}}
-    <x-slot name="heading">
-        Hapus Slide
-    </x-slot>
+                                        {{-- 1. Tombol Pemicu Modal --}}
+                                        <x-slot name="trigger">
+                                            <button type="button" class="kpm-slide-remove">
+                                                Hapus
+                                            </button>
+                                        </x-slot>
 
-    <x-slot name="description">
-        Apakah Anda yakin ingin menghapus slide gambar ini? Tindakan ini tidak dapat dibatalkan.
-    </x-slot>
+                                        {{-- 2. Teks Konten Modal --}}
+                                        <x-slot name="heading">
+                                            Hapus Slide
+                                        </x-slot>
 
-    {{-- 3. Tombol Aksi di Bawah --}}
-    <x-slot name="footer">
-        <div class="flex items-center justify-end gap-3">
-            {{-- Tombol Batal --}}
-            <x-filament::button color="gray" x-on:click="close()">
-                Batal
-            </x-filament::button>
+                                        <x-slot name="description">
+                                            Apakah Anda yakin ingin menghapus slide gambar ini? Tindakan ini tidak dapat dibatalkan.
+                                        </x-slot>
 
-            {{-- Tombol Hapus & Eksekusi Livewire --}}
-            <x-filament::button color="danger" wire:click="removeIntroImage({{ $i }})" x-on:click="close()">
-                Ya, Hapus
-            </x-filament::button>
-        </div>
-    </x-slot>
-    
-</x-filament::modal>
+                                        {{-- 3. Tombol Aksi di Bawah --}}
+                                        <x-slot name="footer">
+                                            <div class="flex items-center justify-end gap-3">
+                                                {{-- Tombol Batal --}}
+                                                <x-filament::button color="gray" x-on:click="close()">
+                                                    Batal
+                                                </x-filament::button>
+
+                                                {{-- Tombol Hapus & Eksekusi Livewire --}}
+                                                <x-filament::button color="danger" wire:click="removeIntroImage({{ $i }})"
+                                                    x-on:click="close()">
+                                                    Ya, Hapus
+                                                </x-filament::button>
+                                            </div>
+                                        </x-slot>
+
+                                    </x-filament::modal>
                                 </div>
                             @empty
                                 <div class="kpm-slide-empty">Belum ada slide. Tambahkan gambar di bawah.</div>
@@ -404,6 +259,7 @@
                         <p class="kpm-slide-hint">Format: JPG / PNG / WebP · Maks. 2 MB per gambar · Rasio 4:3
                             direkomendasikan</p>
                     </div>
+
                 </div>
             </x-filament::section>
 
@@ -419,12 +275,12 @@
 
                 <div class="space-y-4">
                     @foreach ([
-                            ['field' => 'home_div_construction_desc', 'label' => 'KPM Construction', 'placeholder' => 'Layanan konstruksi sipil dan mekanikal dengan standar kualitas internasional...'],
-                            ['field' => 'home_div_engineering_desc', 'label' => 'KPM Engineering', 'placeholder' => 'Solusi rekayasa teknik inovatif untuk mendukung efisiensi operasional...'],
-                            ['field' => 'home_div_rd_desc', 'label' => 'KPM Research & Development', 'placeholder' => 'Inovasi dan riset terapan untuk menciptakan solusi teknologi...'],
-                            ['field' => 'home_div_farm_desc', 'label' => 'KPM Farm', 'placeholder' => 'Pengembangan agrikultur modern berbasis teknologi...'],
-                            ['field' => 'home_div_procurement_desc', 'label' => 'KPM Procurement', 'placeholder' => 'Layanan pengadaan barang dan material yang efisien, transparan...'],
-                        ] as $div)
+                        ['field' => 'home_div_construction_desc', 'label' => 'KPM Construction', 'placeholder' => 'Layanan konstruksi sipil dan mekanikal dengan standar kualitas internasional...'],
+                        ['field' => 'home_div_engineering_desc', 'label' => 'KPM Engineering', 'placeholder' => 'Solusi rekayasa teknik inovatif untuk mendukung efisiensi operasional...'],
+                        ['field' => 'home_div_rd_desc', 'label' => 'KPM Research & Development', 'placeholder' => 'Inovasi dan riset terapan untuk menciptakan solusi teknologi...'],
+                        ['field' => 'home_div_farm_desc', 'label' => 'KPM Farm', 'placeholder' => 'Pengembangan agrikultur modern berbasis teknologi...'],
+                        ['field' => 'home_div_procurement_desc', 'label' => 'KPM Procurement', 'placeholder' => 'Layanan pengadaan barang dan material yang efisien, transparan...'],
+                    ] as $div)
                         <div
                             class="border border-gray-100 dark:border-white/10 rounded-lg p-4 space-y-2 bg-gray-50/40 dark:bg-white/[0.02]">
                             <label
@@ -448,12 +304,12 @@
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
                     @foreach ([
-                            ['preview_field' => 'home_whyus_img_1_preview', 'current_field' => 'home_whyus_img_1_current', 'label' => 'Gambar 1 — Construction', 'default' => 'thumb-construction.jpg'],
-                            ['preview_field' => 'home_whyus_img_2_preview', 'current_field' => 'home_whyus_img_2_current', 'label' => 'Gambar 2 — Engineering', 'default' => 'thumb-engineering.jpg'],
-                            ['preview_field' => 'home_whyus_img_3_preview', 'current_field' => 'home_whyus_img_3_current', 'label' => 'Gambar 3 — R & D', 'default' => 'thumb-rd.jpg'],
-                            ['preview_field' => 'home_whyus_img_4_preview', 'current_field' => 'home_whyus_img_4_current', 'label' => 'Gambar 4 — Farm', 'default' => 'thumb-farm.jpg'],
-                            ['preview_field' => 'home_whyus_img_5_preview', 'current_field' => 'home_whyus_img_5_current', 'label' => 'Gambar 5 — Procurement', 'default' => 'thumb-procurement.jpg'],
-                        ] as $img)
+                        ['preview_field' => 'home_whyus_img_1_preview', 'current_field' => 'home_whyus_img_1_current', 'label' => 'Gambar 1 — Construction', 'default' => 'thumb-construction.jpg'],
+                        ['preview_field' => 'home_whyus_img_2_preview', 'current_field' => 'home_whyus_img_2_current', 'label' => 'Gambar 2 — Engineering', 'default' => 'thumb-engineering.jpg'],
+                        ['preview_field' => 'home_whyus_img_3_preview', 'current_field' => 'home_whyus_img_3_current', 'label' => 'Gambar 3 — R & D', 'default' => 'thumb-rd.jpg'],
+                        ['preview_field' => 'home_whyus_img_4_preview', 'current_field' => 'home_whyus_img_4_current', 'label' => 'Gambar 4 — Farm', 'default' => 'thumb-farm.jpg'],
+                        ['preview_field' => 'home_whyus_img_5_preview', 'current_field' => 'home_whyus_img_5_current', 'label' => 'Gambar 5 — Procurement', 'default' => 'thumb-procurement.jpg'],
+                    ] as $img)
                         <div
                             class="border border-gray-200 dark:border-white/10 rounded-lg p-4 bg-gray-50/40 dark:bg-white/[0.02]">
                             <p class="text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider mb-3">
@@ -628,12 +484,12 @@
                         </p>
                         <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
                             @foreach ([
-                                    ['model' => 'home_whyus_label_1', 'label' => 'Gambar 1'],
-                                    ['model' => 'home_whyus_label_2', 'label' => 'Gambar 2'],
-                                    ['model' => 'home_whyus_label_3', 'label' => 'Gambar 3'],
-                                    ['model' => 'home_whyus_label_4', 'label' => 'Gambar 4'],
-                                    ['model' => 'home_whyus_label_5', 'label' => 'Gambar 5'],
-                                ] as $lbl)
+                                ['model' => 'home_whyus_label_1', 'label' => 'Gambar 1'],
+                                ['model' => 'home_whyus_label_2', 'label' => 'Gambar 2'],
+                                ['model' => 'home_whyus_label_3', 'label' => 'Gambar 3'],
+                                ['model' => 'home_whyus_label_4', 'label' => 'Gambar 4'],
+                                ['model' => 'home_whyus_label_5', 'label' => 'Gambar 5'],
+                            ] as $lbl)
                                 <div>
                                     <label
                                         class="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-1.5 uppercase tracking-wider">{{ $lbl['label'] }}</label>
@@ -666,11 +522,9 @@
             </x-filament::section>
 
             {{-- ── Sticky Save Bar — HOME ── --}}
-            <div class="sticky bottom-0 z-50 flex flex-wrap items-center justify-between gap-3"
-                style="padding:1rem 1.5rem; background-color:rgba(255,255,255,0.97); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); border-top:1px solid #e5e7eb; z-index:9999;">
+            <div class="sticky bottom-0 z-50 flex flex-wrap items-center justify-between gap-3 kpm-save-bar">
                 <p class="text-xs text-gray-400 dark:text-gray-500">Perubahan belum disimpan hingga tombol diklik.</p>
-                <button type="submit" class="save-btn flex-shrink-0 flex items-center gap-2"
-                    style="background-color:#f59e0b; color:#ffffff; padding:0.625rem 1.5rem; border-radius:0.375rem; font-weight:600; font-size:0.875rem; border:none; cursor:pointer; display:inline-flex; align-items:center; gap:0.5rem; box-shadow:0 2px 8px rgba(245,158,11,0.35); transition:background-color 0.2s;">
+                <button type="submit" class="kpm-save-btn flex-shrink-0">
                     <svg style="width:1rem;height:1rem;flex-shrink:0;" fill="none" stroke="currentColor"
                         viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
@@ -696,10 +550,10 @@
                             class="w-full border border-gray-300 dark:border-white/20 rounded px-3 py-2 text-sm bg-white dark:bg-white/5 dark:text-white focus:ring-2 focus:ring-amber-500">
                     </div>
                     @foreach ([
-                            ['field' => 'about_profile_paragraph1', 'label' => 'Paragraf 1 — Pengantar Perusahaan'],
-                            ['field' => 'about_profile_paragraph2', 'label' => 'Paragraf 2 — Sejarah & Pertumbuhan'],
-                            ['field' => 'about_profile_paragraph3', 'label' => 'Paragraf 3 — Kompetensi & Standar'],
-                        ] as $p)
+                        ['field' => 'about_profile_paragraph1', 'label' => 'Paragraf 1 — Pengantar Perusahaan'],
+                        ['field' => 'about_profile_paragraph2', 'label' => 'Paragraf 2 — Sejarah & Pertumbuhan'],
+                        ['field' => 'about_profile_paragraph3', 'label' => 'Paragraf 3 — Kompetensi & Standar'],
+                    ] as $p)
                         <div>
                             <label
                                 class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">{{ $p['label'] }}</label>
@@ -825,11 +679,9 @@
             </x-filament::section>
 
             {{-- ── Sticky Save Bar — ABOUT ── --}}
-            <div class="sticky bottom-0 z-50 flex flex-wrap items-center justify-between gap-3"
-                style="padding:1rem 1.5rem; background-color:rgba(255,255,255,0.97); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); border-top:1px solid #e5e7eb; z-index:9999;">
+            <div class="sticky bottom-0 z-50 flex flex-wrap items-center justify-between gap-3 kpm-save-bar">
                 <p class="text-xs text-gray-400 dark:text-gray-500">Perubahan belum disimpan hingga tombol diklik.</p>
-                <button type="submit" class="save-btn flex-shrink-0 flex items-center gap-2"
-                    style="background-color:#f59e0b; color:#ffffff; padding:0.625rem 1.5rem; border-radius:0.375rem; font-weight:600; font-size:0.875rem; border:none; cursor:pointer; display:inline-flex; align-items:center; gap:0.5rem; box-shadow:0 2px 8px rgba(245,158,11,0.35); transition:background-color 0.2s;">
+                <button type="submit" class="kpm-save-btn flex-shrink-0">
                     <svg style="width:1rem;height:1rem;flex-shrink:0;" fill="none" stroke="currentColor"
                         viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
@@ -891,11 +743,9 @@
             </div>
 
             {{-- ── Sticky Save Bar — SERVICES ── --}}
-            <div class="sticky bottom-0 z-50 flex flex-wrap items-center justify-between gap-3"
-                style="padding:1rem 1.5rem; background-color:rgba(255,255,255,0.97); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); border-top:1px solid #e5e7eb; z-index:9999;">
+            <div class="sticky bottom-0 z-50 flex flex-wrap items-center justify-between gap-3 kpm-save-bar">
                 <p class="text-xs text-gray-400 dark:text-gray-500">Perubahan belum disimpan hingga tombol diklik.</p>
-                <button type="submit" class="save-btn flex-shrink-0 flex items-center gap-2"
-                    style="background-color:#f59e0b; color:#ffffff; padding:0.625rem 1.5rem; border-radius:0.375rem; font-weight:600; font-size:0.875rem; border:none; cursor:pointer; display:inline-flex; align-items:center; gap:0.5rem; box-shadow:0 2px 8px rgba(245,158,11,0.35); transition:background-color 0.2s;">
+                <button type="submit" class="kpm-save-btn flex-shrink-0">
                     <svg style="width:1rem;height:1rem;flex-shrink:0;" fill="none" stroke="currentColor"
                         viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
@@ -1011,11 +861,9 @@
             </x-filament::section>
 
             {{-- ── Sticky Save Bar — CONTACT ── --}}
-            <div class="sticky bottom-0 z-50 flex flex-wrap items-center justify-between gap-3"
-                style="padding:1rem 1.5rem; background-color:rgba(255,255,255,0.97); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); border-top:1px solid #e5e7eb; z-index:9999;">
+            <div class="sticky bottom-0 z-50 flex flex-wrap items-center justify-between gap-3 kpm-save-bar">
                 <p class="text-xs text-gray-400 dark:text-gray-500">Perubahan belum disimpan hingga tombol diklik.</p>
-                <button type="submit" class="save-btn flex-shrink-0 flex items-center gap-2"
-                    style="background-color:#f59e0b; color:#ffffff; padding:0.625rem 1.5rem; border-radius:0.375rem; font-weight:600; font-size:0.875rem; border:none; cursor:pointer; display:inline-flex; align-items:center; gap:0.5rem; box-shadow:0 2px 8px rgba(245,158,11,0.35); transition:background-color 0.2s;">
+                <button type="submit" class="kpm-save-btn flex-shrink-0">
                     <svg style="width:1rem;height:1rem;flex-shrink:0;" fill="none" stroke="currentColor"
                         viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
@@ -1116,11 +964,9 @@
             </x-filament::section>
 
             {{-- ── Sticky Save Bar — SEO ── --}}
-            <div class="sticky bottom-0 z-50 flex flex-wrap items-center justify-between gap-3"
-                style="padding:1rem 1.5rem; background-color:rgba(255,255,255,0.97); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); border-top:1px solid #e5e7eb; z-index:9999;">
+            <div class="sticky bottom-0 z-50 flex flex-wrap items-center justify-between gap-3 kpm-save-bar">
                 <p class="text-xs text-gray-400 dark:text-gray-500">Perubahan belum disimpan hingga tombol diklik.</p>
-                <button type="submit" class="save-btn flex-shrink-0 flex items-center gap-2"
-                    style="background-color:#f59e0b; color:#ffffff; padding:0.625rem 1.5rem; border-radius:0.375rem; font-weight:600; font-size:0.875rem; border:none; cursor:pointer; display:inline-flex; align-items:center; gap:0.5rem; box-shadow:0 2px 8px rgba(245,158,11,0.35); transition:background-color 0.2s;">
+                <button type="submit" class="kpm-save-btn flex-shrink-0">
                     <svg style="width:1rem;height:1rem;flex-shrink:0;" fill="none" stroke="currentColor"
                         viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
@@ -1131,45 +977,5 @@
 
         </form>
     @endif
-
-
-    {{-- ── Global Script ── --}}
-    @push('scripts')
-        <script>
-            function applyFixSaveBar() {
-                document.querySelectorAll('.sticky.bottom-0').forEach(function (bar) {
-                    var isDark = document.documentElement.classList.contains('dark');
-                    bar.style.backgroundColor = isDark ? 'rgba(17,24,39,0.97)' : 'rgba(255,255,255,0.97)';
-                    bar.style.backdropFilter = 'blur(8px)';
-                    bar.style.webkitBackdropFilter = 'blur(8px)';
-                    bar.style.zIndex = '9999';
-                });
-
-                document.querySelectorAll('.save-btn').forEach(function (btn) {
-                    btn.addEventListener('mouseenter', function () {
-                        this.style.backgroundColor = '#d97706';
-                        this.style.boxShadow = '0 4px 12px rgba(245,158,11,0.45)';
-                    });
-                    btn.addEventListener('mouseleave', function () {
-                        this.style.backgroundColor = '#f59e0b';
-                        this.style.boxShadow = '0 2px 8px rgba(245,158,11,0.35)';
-                    });
-                    btn.addEventListener('mousedown', function () {
-                        this.style.backgroundColor = '#b45309';
-                        this.style.transform = 'scale(0.98)';
-                    });
-                    btn.addEventListener('mouseup', function () {
-                        this.style.backgroundColor = '#d97706';
-                        this.style.transform = 'scale(1)';
-                    });
-                });
-            }
-
-            document.addEventListener('DOMContentLoaded', applyFixSaveBar);
-            document.addEventListener('livewire:navigated', applyFixSaveBar);
-            document.addEventListener('livewire:update', applyFixSaveBar);
-            document.addEventListener('livewire:initialized', applyFixSaveBar);
-        </script>
-    @endpush
 
 </x-filament-panels::page>

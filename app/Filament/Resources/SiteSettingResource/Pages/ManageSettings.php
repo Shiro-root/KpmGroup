@@ -7,9 +7,9 @@ use App\Filament\Resources\SiteSettingResource;
 use App\Models\SiteSetting;
 use Filament\Notifications\Notification;
 use Filament\Resources\Pages\Page;
-use Livewire\WithFileUploads;
+use Livewire\Attributes\Locked;
 use Livewire\Attributes\Url;
-use Illuminate\Support\Facades\Cache;
+use Livewire\WithFileUploads;
 
 class ManageSettings extends Page
 {
@@ -24,6 +24,7 @@ class ManageSettings extends Page
     // Menyimpan URL halaman saat mount() (request GET asli),
     // dipakai untuk redirect setelah save agar tidak salah
     // mengarah ke endpoint internal /livewire/update.
+    #[Locked]
     public string $pageUrl = '';
 
     // ══ HOME ══
@@ -119,6 +120,7 @@ class ManageSettings extends Page
     {
         $this->pageUrl = request()->fullUrl();
 
+        // SiteSetting::get() kini hanya lookup array (1 query total, ter-cache).
         $get = fn(string $key, string $default = '') => SiteSetting::get($key, $default);
 
         // Home
@@ -207,10 +209,28 @@ class ManageSettings extends Page
 
     // ── Helpers ────────────────────────────────────────────────
 
+    /**
+     * Simpan satu setting (cache dibersihkan otomatis oleh SiteSetting).
+     */
     protected function set(string $key, $value, string $group = 'general'): void
     {
         SiteSetting::set($key, $value ?? '', $group);
-        Cache::forget("site_setting_{$key}");
+    }
+
+    /**
+     * Simpan banyak property sekaligus dalam 1 query.
+     *
+     * @param  string[]  $keys  nama property yang sekaligus menjadi key setting
+     */
+    protected function saveMany(array $keys, string $group): void
+    {
+        $values = [];
+
+        foreach ($keys as $key) {
+            $values[$key] = $this->{$key};
+        }
+
+        SiteSetting::setMany($values, $group);
     }
 
     /**
@@ -338,7 +358,7 @@ class ManageSettings extends Page
             return;
         }
 
-        $textKeys = [
+        $this->saveMany([
             'home_hero_title',
             'home_hero_subtitle',
             'home_company_intro',
@@ -364,11 +384,7 @@ class ManageSettings extends Page
             'home_whyus_label_5',
             'home_whyus_title',
             'home_whyus_subtitle',
-        ];
-
-        foreach ($textKeys as $key) {
-            $this->set($key, $this->{$key}, 'home');
-        }
+        ], 'home');
 
         $this->set('home_whyus_points', json_encode($this->home_whyus_points), 'home');
 
@@ -410,22 +426,22 @@ class ManageSettings extends Page
         }
 
         if (!empty($this->home_intro_new_uploads)) {
-    foreach ($this->home_intro_new_uploads as $upload) {
-        $ext = strtolower($upload->getClientOriginalExtension());
-        $name = 'about-visual-' . uniqid() . '.' . $ext;
+            foreach ($this->home_intro_new_uploads as $upload) {
+                $ext = strtolower($upload->getClientOriginalExtension());
+                $name = 'about-visual-' . uniqid() . '.' . $ext;
 
-        $dest = base_path('images');
-        if (!is_dir($dest)) {
-            mkdir($dest, 0755, true);
+                $dest = base_path('images');
+                if (!is_dir($dest)) {
+                    mkdir($dest, 0755, true);
+                }
+
+                copy($upload->getRealPath(), $dest . DIRECTORY_SEPARATOR . $name);
+                $this->home_intro_images[] = $name;
+            }
+            $this->home_intro_new_uploads = [];
         }
 
-        copy($upload->getRealPath(), $dest . DIRECTORY_SEPARATOR . $name);
-        $this->home_intro_images[] = $name;
-    }
-    $this->home_intro_new_uploads = [];
-}
-
-$this->set('home_intro_images', json_encode(array_values($this->home_intro_images)), 'home');
+        $this->set('home_intro_images', json_encode(array_values($this->home_intro_images)), 'home');
 
         Notification::make()
             ->title('Halaman Home berhasil disimpan!')
@@ -439,7 +455,7 @@ $this->set('home_intro_images', json_encode(array_values($this->home_intro_image
 
     public function saveAbout(): void
     {
-        $keys = [
+        $this->saveMany([
             'about_company_name',
             'about_profile_paragraph1',
             'about_profile_paragraph2',
@@ -452,11 +468,7 @@ $this->set('home_intro_images', json_encode(array_values($this->home_intro_image
             'about_mission_5',
             'about_business_field',
             'about_operation_area',
-        ];
-
-        foreach ($keys as $key) {
-            $this->set($key, $this->{$key}, 'about');
-        }
+        ], 'about');
 
         usort($this->milestones, fn($a, $b) => ($a['year'] ?? '') <=> ($b['year'] ?? ''));
         $this->set('milestones', json_encode($this->milestones), 'about');
@@ -471,14 +483,12 @@ $this->set('home_intro_images', json_encode(array_values($this->home_intro_image
 
     public function saveServices(): void
     {
-        foreach ([
+        $this->saveMany([
             'services_page_title',
             'services_page_subtitle',
             'services_cta_title',
             'services_cta_subtitle',
-        ] as $key) {
-            $this->set($key, $this->{$key}, 'services');
-        }
+        ], 'services');
 
         Notification::make()
             ->title('Halaman Services berhasil disimpan!')
@@ -490,7 +500,7 @@ $this->set('home_intro_images', json_encode(array_values($this->home_intro_image
 
     public function saveContact(): void
     {
-        $keys = [
+        $this->saveMany([
             'contact_whatsapp',
             'contact_whatsapp_display',
             'contact_email',
@@ -501,11 +511,7 @@ $this->set('home_intro_images', json_encode(array_values($this->home_intro_image
             'contact_tiktok_handle',
             'contact_maps_embed_url',
             'contact_office_hours',
-        ];
-
-        foreach ($keys as $key) {
-            $this->set($key, $this->{$key}, 'contact');
-        }
+        ], 'contact');
 
         Notification::make()
             ->title('Halaman Contact berhasil disimpan!')
@@ -517,9 +523,7 @@ $this->set('home_intro_images', json_encode(array_values($this->home_intro_image
 
     public function saveSeo(): void
     {
-        foreach (['seo_title', 'seo_description'] as $key) {
-            $this->set($key, $this->{$key}, 'general');
-        }
+        $this->saveMany(['seo_title', 'seo_description'], 'general');
 
         Notification::make()
             ->title('Pengaturan SEO berhasil disimpan!')

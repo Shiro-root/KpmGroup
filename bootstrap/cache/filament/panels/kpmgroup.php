@@ -27,7 +27,7 @@
   ),
   'pageDirectories' => 
   array (
-    0 => '/home/kpmgroup/public_html/app/Filament/Kpmgroup/Pages',
+    0 => 'C:\\Users\\Dewangga\\Downloads\\Compressed\\.well-known\\app\\Filament/Kpmgroup/Pages',
   ),
   'pageNamespaces' => 
   array (
@@ -38,7 +38,7 @@
   ),
   'resourceDirectories' => 
   array (
-    0 => '/home/kpmgroup/public_html/app/Filament/Kpmgroup/Resources',
+    0 => 'C:\\Users\\Dewangga\\Downloads\\Compressed\\.well-known\\app\\Filament/Kpmgroup/Resources',
   ),
   'resourceNamespaces' => 
   array (
@@ -51,7 +51,7 @@
   ),
   'widgetDirectories' => 
   array (
-    0 => '/home/kpmgroup/public_html/app/Filament/Kpmgroup/Widgets',
+    0 => 'C:\\Users\\Dewangga\\Downloads\\Compressed\\.well-known\\app\\Filament/Kpmgroup/Widgets',
   ),
   'widgetNamespaces' => 
   array (
