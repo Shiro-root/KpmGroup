@@ -1,0 +1,151 @@
+/* ── _cards.css ───────────────────────────────── */
+
+@layer components {
+
+    /* ─── Base card ────────────────────────────── */
+    .card {
+        @apply bg-white border border-gray-100
+               transition-all duration-300;
+    }
+
+    /* ─── Service card — premium redesign ──────── */
+    /*
+     * Card face hanya menampilkan: logo/icon, tagline, title,
+     * gold divider, description, dan CTA "Selengkapnya" yang
+     * membuka modal. List sub-services ada di dalam modal ($slot).
+     */
+    /*
+     * 'group' TIDAK boleh di @apply — tambahkan langsung di HTML:
+     * <article class="service-card group" ...>
+     */
+    .service-card {
+        @apply card relative flex flex-col h-full overflow-hidden
+               cursor-pointer
+               hover:border-gold/25
+               hover:shadow-xl hover:shadow-gold/10
+               hover:-translate-y-1.5
+               transition-all duration-500 ease-out;
+    }
+
+    /* Gold gradient bar — slides in from left on hover */
+    .service-card__bar {
+        @apply absolute top-0 left-0 right-0 h-[2px]
+               bg-gradient-to-r from-gold via-gold/70 to-transparent
+               scale-x-0 group-hover:scale-x-100
+               transition-transform duration-500 ease-out origin-left z-10;
+    }
+
+    /* Card inner padding wrapper */
+    .service-card__inner {
+        @apply relative z-[1] flex flex-col flex-1 p-8;
+    }
+
+    /* Header row: logo/icon di kiri, title block di kanan */
+    .service-card__header {
+        @apply flex items-start gap-4 mb-6;
+    }
+
+    /* Logo dari admin — white bg, contained */
+    .service-card__logo {
+        @apply w-16 h-16 flex-shrink-0 bg-white border border-gray-100 p-2
+               flex items-center justify-center
+               transition-all duration-300
+               group-hover:border-gold/30 group-hover:shadow-md group-hover:shadow-gold/10;
+    }
+
+    .service-card__logo img {
+        @apply w-full h-full object-contain;
+    }
+
+    /* Fallback SVG icon */
+    .service-card__icon {
+        @apply w-16 h-16 flex-shrink-0 bg-gold/10 border border-gold/15
+               flex items-center justify-center
+               transition-all duration-300
+               group-hover:bg-gold/15 group-hover:border-gold/30;
+    }
+
+    /* Title area (kanan dari logo) */
+    .service-card__title-block {
+        @apply min-w-0 pt-1;
+    }
+
+    /* "Konstruksi berkualitas internasional" — kecil di atas title */
+    .service-card__tagline {
+        @apply label-mono text-[10px] mb-1.5 text-charcoal-400;
+    }
+
+    .service-card__title {
+        @apply font-display text-lg font-bold text-charcoal leading-snug
+               transition-colors duration-300 group-hover:text-gold;
+    }
+
+    /* Animated gold divider di bawah header */
+    .service-card__divider {
+        @apply h-px bg-gold/25 mb-5
+               transition-all duration-300 group-hover:bg-gold;
+    }
+
+    /* Body description */
+    .service-card__desc {
+        @apply text-charcoal-500 text-sm leading-relaxed flex-1;
+    }
+
+    /* CTA row — "Selengkapnya" + arrow icon */
+    .service-card__cta {
+        @apply mt-6 pt-5 border-t border-gray-100
+               flex items-center justify-between
+               text-charcoal-400 group-hover:text-gold
+               transition-colors duration-300;
+    }
+
+    .service-card__cta-label {
+        @apply text-xs font-semibold tracking-wide uppercase;
+    }
+
+    .service-card__cta-arrow {
+        @apply w-7 h-7 border border-gray-200 flex items-center justify-center flex-shrink-0
+               transition-all duration-300
+               group-hover:border-gold group-hover:bg-gold group-hover:text-white;
+    }
+
+    /* ─── View-all / empty card ─────────────────── */
+    .services-empty-card {
+        @apply card border-dashed border-gray-200
+               hover:border-gold/40
+               hover:shadow-lg hover:shadow-gold/5
+               transition-all duration-300;
+    }
+
+    /* ─── Contact card ──────────────────────────── */
+    .contact-card {
+        @apply card flex items-center gap-5 p-6
+               hover:border-gold/30 hover:shadow-md
+               transition-all duration-300;
+    }
+
+    .contact-card__icon {
+        @apply w-12 h-12 flex items-center justify-center flex-shrink-0;
+    }
+
+    /* ─── Document card ─────────────────────────── */
+    .doc-card {
+        @apply card relative p-6 cursor-pointer
+               hover:border-gold/30 hover:shadow-lg hover:shadow-gold/5
+               hover:-translate-y-0.5
+               transition-all duration-300;
+    }
+
+    /* ─── Stat card ─────────────────────────────── */
+    .stat-card {
+        @apply text-center px-6 py-3;
+    }
+
+    .stat-card__number {
+        @apply font-display text-3xl md:text-4xl font-bold text-white leading-none;
+    }
+
+    .stat-card__label {
+        @apply text-white/75 text-xs font-medium mt-1.5 tracking-wide;
+    }
+}

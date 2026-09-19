@@ -1,0 +1,28 @@
+/* ── _spacing.css ─────────────────────────────── */
+
+@layer utilities {
+
+    /* Consistent section padding */
+    .section-pad {
+        @apply py-24 md:py-32;
+    }
+
+    .section-pad-sm {
+        @apply py-16 md:py-20;
+    }
+
+    /* Container wrapper */
+    .container-kpm {
+        @apply max-w-7xl mx-auto px-5 sm:px-6 lg:px-8;
+    }
+
+    /* Section divider line */
+    .section-divider {
+        @apply w-12 h-0.5 bg-gold;
+    }
+
+    /* Gold vertical bar (left accent) */
+    .gold-bar-left {
+        @apply absolute left-0 top-0 bottom-0 w-[3px] bg-gold;
+    }
+}

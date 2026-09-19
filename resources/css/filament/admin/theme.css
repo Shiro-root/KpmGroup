@@ -1,0 +1,134 @@
+/* ── KPM Group Filament Theme ── */
+
+:root {
+    --gold: #C88719;
+    --gold-light: #f0c040;
+    --charcoal: #1a1a1a;
+    --charcoal-800: #2a2a2a;
+}
+
+/* ── Login Page ── */
+
+.fi-simple-layout {
+    min-height: 100dvh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Decorative gold line kiri — seperti bento-cell--main::after */
+.fi-simple-layout::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: linear-gradient(to bottom, #C88719, #f0c040, #C88719);
+}
+
+/* Card login */
+.fi-simple-main {
+    width: 100%;
+    max-width: 420px;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow:
+        0 0 0 1px rgba(200, 135, 25, 0.15),
+        0 20px 60px rgba(0, 0, 0, 0.25);
+}
+
+/* Header brand */
+.fi-simple-main::before {
+    content: 'KPM GROUP';
+    display: block;
+    text-align: center;
+    font-family: ui-monospace, monospace;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.3em;
+    color: #C88719;
+    padding: 28px 0 0;
+    background: inherit;
+}
+
+/* Gold accent bawah brand */
+.fi-simple-main::after {
+    content: '';
+    display: block;
+    width: 32px;
+    height: 2px;
+    background: #C88719;
+    margin: 10px auto 0;
+}
+
+/* Judul halaman */
+.fi-simple-header h1 {
+    font-size: 1.4rem !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.01em;
+    margin-top: 12px;
+}
+
+/* Input focus — gold border */
+.fi-input:focus {
+    outline: none !important;
+    box-shadow: 0 0 0 2px rgba(200, 135, 25, 0.4) !important;
+    border-color: #C88719 !important;
+}
+
+/* Button primary — gold */
+.fi-btn-primary {
+    background-color: #C88719 !important;
+    border-color: #C88719 !important;
+    font-family: ui-monospace, monospace !important;
+    font-size: 11px !important;
+    letter-spacing: 0.15em !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease !important;
+}
+
+.fi-btn-primary:hover {
+    background-color: #f0c040 !important;
+    box-shadow: 0 4px 20px rgba(200, 135, 25, 0.35) !important;
+}
+
+/* Link lupa password */
+.fi-link {
+    color: #C88719 !important;
+    font-size: 12px !important;
+}
+
+.fi-link:hover {
+    color: #f0c040 !important;
+}
+
+/* Label input */
+.fi-fo-field-wrp label {
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.05em;
+}
+
+/* ── Dark mode overrides ── */
+.dark .fi-simple-main {
+    background-color: #1e1e1e;
+    box-shadow:
+        0 0 0 1px rgba(200, 135, 25, 0.2),
+        0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.dark .fi-input {
+    background-color: #2a2a2a !important;
+    border-color: rgba(200, 135, 25, 0.2) !important;
+    color: #f5f5f5 !important;
+}
+
+/* ── Light mode overrides ── */
+.light .fi-simple-main,
+:root:not(.dark) .fi-simple-main {
+    background-color: #ffffff;
+}

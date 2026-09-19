@@ -1,0 +1,57 @@
+/* ── _buttons.css ─────────────────────────────── */
+
+@layer components {
+
+    .btn {
+        @apply inline-flex items-center justify-center gap-2
+               font-sans font-semibold text-sm tracking-wide
+               transition-all duration-300 cursor-pointer
+               select-none whitespace-nowrap;
+    }
+
+    .btn-primary {
+        @apply btn px-7 py-3.5
+               bg-gold text-white
+               hover:bg-gold-600
+               hover:shadow-lg hover:shadow-gold/25
+               active:scale-[0.98];
+    }
+
+    .btn-outline {
+        @apply btn px-7 py-3.5
+               border border-white/30 text-white
+               hover:border-gold hover:text-gold
+               active:scale-[0.98];
+    }
+
+    .btn-outline-dark {
+        @apply btn px-7 py-3.5
+               border border-charcoal/20 text-charcoal
+               hover:border-gold hover:text-gold
+               active:scale-[0.98];
+    }
+
+    /* 1. Kata 'group' dihapus dari sini */
+    .btn-ghost {
+        @apply btn px-0 py-0
+               text-gold font-semibold text-sm;
+    }
+
+    /* 2. Setup transisi untuk span */
+    .btn-ghost span {
+        @apply transition-all duration-300;
+    }
+
+    /* 3. Menggantikan fungsi 'group-hover' dengan CSS murni */
+    .btn-ghost:hover span {
+        @apply mr-1;
+    }
+
+    .btn-whatsapp {
+        @apply btn px-7 py-3.5
+               bg-[#25D366] text-white
+               hover:bg-[#1fba5a]
+               hover:shadow-lg hover:shadow-green-500/25
+               active:scale-[0.98];
+    }
+}

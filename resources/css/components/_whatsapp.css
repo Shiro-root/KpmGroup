@@ -1,0 +1,31 @@
+/* ── _whatsapp.css ────────────────────────────── */
+
+@layer components {
+
+    .wa-float {
+        @apply fixed bottom-6 right-6 z-50
+               w-14 h-14 bg-[#25D366] rounded-full
+               flex items-center justify-center
+               shadow-xl shadow-green-700/20
+               hover:scale-110 hover:shadow-2xl hover:shadow-green-500/35
+               transition-all duration-300;
+    }
+
+    .wa-float__tooltip {
+        @apply absolute right-16 bg-white text-charcoal text-xs font-medium
+               px-3 py-1.5 shadow-lg whitespace-nowrap
+               opacity-0 pointer-events-none
+               transition-opacity duration-200;
+    }
+
+    .wa-float:hover .wa-float__tooltip {
+        @apply opacity-100;
+    }
+
+    /* Pulse ring */
+    .wa-float::before {
+        content: '';
+        @apply absolute inset-0 rounded-full bg-[#25D366]
+               animate-ping opacity-20;
+    }
+}

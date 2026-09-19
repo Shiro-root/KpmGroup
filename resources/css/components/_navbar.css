@@ -1,0 +1,45 @@
+/* ── _navbar.css ──────────────────────────────── */
+
+@layer components {
+
+    #navbar {
+        @apply fixed top-0 left-0 right-0 z-50
+               transition-all duration-300;
+    }
+
+    #navbar.is-transparent {
+        @apply bg-transparent;
+    }
+
+    #navbar.is-solid {
+        @apply bg-white shadow-sm shadow-black/5;
+    }
+
+    .nav-link {
+        @apply relative text-sm font-medium tracking-wide uppercase
+               transition-colors duration-200;
+    }
+
+    .nav-link::after {
+        content: '';
+        @apply absolute -bottom-0.5 left-0 h-[2px] bg-gold w-0
+               transition-all duration-300;
+    }
+
+    .nav-link:hover::after,
+    .nav-link.active::after {
+        @apply w-full;
+    }
+
+    .nav-link--light {
+        @apply text-white/80 hover:text-white;
+    }
+
+    .nav-link--dark {
+        @apply text-charcoal hover:text-gold;
+    }
+
+    .nav-link.active {
+        @apply text-gold;
+    }
+}

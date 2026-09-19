@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://kpmgroupofficial.co.id/sitemap.xml

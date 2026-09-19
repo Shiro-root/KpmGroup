@@ -1,0 +1,164 @@
+/* ── _modal.css ───────────────────────────────── */
+
+@layer components {
+
+    .modal-backdrop {
+        @apply fixed inset-0 z-50 flex items-center justify-center p-4 md:p-8
+               bg-black/70 backdrop-blur-md;
+    }
+
+    /* ─── Modal box — light card, sharp corners, single scroll ──── */
+    .modal-box {
+        @apply relative bg-white w-full shadow-2xl
+               max-h-[90vh] overflow-hidden flex flex-col;
+    }
+
+    /* Gold accent bar — thin pill, centered on top edge */
+    .modal-box__bar {
+        @apply absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2
+               w-24 h-1.5 rounded-full
+               bg-gradient-to-r from-gold/50 via-gold to-gold/50
+               pointer-events-none z-10;
+    }
+
+    /* Close button — circular, floating, stays fixed (outside scroll area) */
+    .modal-close {
+        @apply absolute top-5 right-5 z-10
+               w-9 h-9 rounded-full bg-white border border-gray-200
+               flex items-center justify-center
+               text-gray-400 hover:text-charcoal hover:border-gold
+               shadow-sm transition-all duration-200;
+    }
+
+    /* Inner scroll wrapper — only this part scrolls, bar & close stay put */
+    .modal-scroll {
+        @apply flex-1 overflow-y-auto;
+    }
+
+    /* ─── Header — centered: logo, tagline, title ───────────────── */
+    .modal-header {
+        @apply flex flex-col items-center text-center
+               px-8 md:px-14 pt-12 pb-8;
+    }
+
+    /* Logo box — REVISI: diperbesar dari w-14 h-14 (56px, efektif ~36px
+       setelah padding) jadi w-24/w-28 dengan padding lebih kecil supaya
+       logo tampil jelas, tidak ngambang kecil di tengah kotak. */
+    .modal-header__icon {
+        @apply w-24 h-24 md:w-28 md:h-28 bg-gold/5 border border-gold/15 rounded-lg
+               flex items-center justify-center mb-5;
+    }
+
+    .modal-header__icon img {
+        @apply w-full h-full object-contain p-4;
+    }
+
+    .modal-header__icon svg {
+        @apply w-10 h-10 text-gold;
+    }
+
+    .modal-header__tagline {
+        @apply label-mono text-[10px] text-gold mb-3;
+    }
+
+    .modal-header__title {
+        @apply font-display text-3xl md:text-4xl font-bold text-charcoal
+               leading-snug;
+    }
+
+    .modal-divider {
+        @apply h-px bg-gray-100 w-full flex-shrink-0;
+    }
+
+    /* ─── Body — left: desc+CTA · right: spec grid ────────────────
+       Base hanya berisi properti bersama. Layout kolom ditentukan oleh
+       variant di bawah, supaya saat sub-layanan kosong modal tidak
+       "diregangkan" jadi 2 kolom dengan banyak ruang kosong. ──────── */
+    .modal-body {
+        @apply grid grid-cols-1;
+    }
+
+    /* Variant: ada sub-layanan → 2 kolom seperti semula */
+    .modal-body--split {
+        @apply md:grid-cols-[280px_1fr]
+               divide-y md:divide-y-0 md:divide-x divide-gray-100;
+    }
+
+    /* Variant: sub-layanan kosong → 1 kolom, lebih ramping & center,
+       supaya proporsional (tidak ada kotak kanan kosong). */
+    .modal-body--single {
+        @apply max-w-md mx-auto w-full;
+    }
+
+    .modal-body__left {
+        @apply p-8 md:p-10 flex flex-col;
+    }
+
+    /* Variant: dipakai saat mode --single (sub-layanan kosong).
+       Tanpa kolom kanan, teks rata-kiri terasa putus dari header yang
+       semuanya center — jadi di mode ini disamakan: center semua. */
+    .modal-body__left--center {
+        @apply items-center text-center;
+    }
+
+    .modal-body__desc {
+        @apply text-charcoal-500 text-sm leading-relaxed flex-1;
+    }
+
+    .modal-body__cta {
+        @apply mt-8;
+    }
+
+    .modal-body__right {
+        @apply p-8 md:p-10 flex flex-col;
+    }
+
+    .modal-body__right-label {
+        @apply label-mono text-[10px] text-charcoal-400 mb-5;
+    }
+
+    /* Spec grid — bordered cards, sharp corners, gold on hover.
+       Hanya menampilkan JUDUL (nama sub-layanan), satu baris, supaya
+       rapi & tidak menumpuk. Detail/deskripsi lengkap ada di halaman Layanan. */
+    .modal-spec-grid {
+        @apply grid grid-cols-1 sm:grid-cols-2 gap-3;
+    }
+
+    .modal-spec-item {
+        @apply flex items-center gap-3 p-4
+               border border-gray-200
+               hover:border-gold/50 hover:bg-gold/[0.03]
+               transition-all duration-200;
+    }
+
+    .modal-spec-item__icon {
+        @apply w-9 h-9 bg-gold/10 flex items-center justify-center flex-shrink-0;
+    }
+
+    .modal-spec-item__icon svg {
+        @apply w-4 h-4 text-gold;
+    }
+
+    .modal-spec-item__text {
+        @apply text-sm font-semibold text-charcoal leading-snug;
+    }
+
+    /* Link "lihat detail lengkap" — arahkan ke halaman Layanan
+       untuk yang mau baca deskripsi penuh per divisi/sub-layanan. */
+    .modal-body__more-link {
+        @apply mt-6 inline-flex items-center gap-1.5 w-fit
+               text-xs font-semibold uppercase tracking-wider text-gold
+               hover:text-gold/80 hover:gap-2.5
+               transition-all duration-200;
+    }
+
+    .modal-body__more-link svg {
+        @apply w-3.5 h-3.5 transition-transform duration-200;
+    }
+
+    /* Variant: dipakai di layout --single (1 kolom), supaya link
+       berada di tengah, bukan rapat ke kiri. */
+    .modal-body__more-link--center {
+        @apply flex w-fit mx-auto;
+    }
+}

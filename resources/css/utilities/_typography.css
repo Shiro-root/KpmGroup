@@ -1,0 +1,54 @@
+/* ── _typography.css ──────────────────────────── */
+
+@layer utilities {
+
+    .heading-hero {
+        @apply font-display font-bold leading-[1.05] tracking-tight text-white;
+        font-size: clamp(2.5rem, 6vw, 4.5rem);
+    }
+
+    .heading-section {
+        @apply font-display font-bold text-charcoal leading-tight;
+        font-size: clamp(2rem, 4vw, 3rem);
+    }
+
+    .heading-card {
+        @apply font-display font-semibold text-charcoal text-xl leading-snug;
+    }
+
+    .label-mono {
+        @apply font-mono text-xs text-gold tracking-[0.22em] uppercase;
+    }
+
+    .label-divider {
+        @apply flex items-center gap-3;
+    }
+
+    .label-divider::before,
+    .label-divider::after {
+        content: '';
+        @apply flex-1 h-px bg-gold/30;
+    }
+
+    .body-lead {
+        @apply text-charcoal-500 text-base md:text-lg leading-relaxed;
+    }
+
+    .body-sm {
+        @apply text-charcoal-500 text-sm leading-relaxed;
+    }
+
+    /* Gold accent text */
+    .text-accent {
+        @apply text-gold;
+    }
+
+    /* Section eyebrow row */
+    .eyebrow {
+        @apply inline-flex items-center gap-3 mb-5;
+    }
+
+    .eyebrow__line {
+        @apply w-8 h-px bg-gold;
+    }
+}

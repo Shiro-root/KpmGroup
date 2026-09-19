@@ -1,0 +1,226 @@
+/* ── _home.css ────────────────────────────────── */
+
+@layer components {
+
+    /* Stats bar */
+    .stats-bar {
+        @apply bg-gold py-5;
+    }
+
+    .stats-bar__grid {
+        @apply grid grid-cols-2 md:grid-cols-4
+               divide-x divide-gold-600/40;
+    }
+
+    /* ── Intro visual frame (carousel) ──────────── */
+
+    .intro-frame {
+        @apply relative aspect-[4/3] overflow-hidden bg-charcoal-800;
+    }
+
+    .intro-frame__track {
+        @apply flex w-full h-full;
+        transition: transform 0.5s ease-in-out;
+    }
+
+    .intro-frame__slide {
+        @apply flex-shrink-0 w-full h-full;
+    }
+
+    .intro-frame__img {
+        @apply w-full h-full object-cover block opacity-85
+               hover:opacity-100 transition-opacity duration-500;
+    }
+
+    .intro-frame__gold-box {
+        @apply absolute -bottom-4 -right-4 w-24 h-24 bg-gold -z-10;
+    }
+
+    .intro-frame__border {
+        @apply absolute -top-4 -left-4 w-16 h-16
+               border-2 border-gold/30 -z-10;
+    }
+
+    .intro-frame__hover-border {
+        @apply absolute inset-0 border-[3px] border-gold/0
+               hover:border-gold/40
+               transition-all duration-500 pointer-events-none;
+    }
+
+    /* Tombol navigasi kanan/kiri */
+    .intro-frame__nav {
+        @apply absolute top-1/2 -translate-y-1/2 z-20
+               w-10 h-10 rounded-full flex items-center justify-center
+               bg-charcoal-900/50 text-white
+               hover:bg-gold hover:text-charcoal-900
+               transition-colors duration-300;
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+    }
+
+    .intro-frame__nav--prev {
+        @apply left-3;
+    }
+
+    .intro-frame__nav--next {
+        @apply right-3;
+    }
+
+    /* Dots indicator */
+    .intro-frame__dots {
+        @apply absolute bottom-3 left-1/2 -translate-x-1/2 z-20
+               flex items-center gap-1.5;
+    }
+
+    .intro-frame__dot {
+        @apply rounded-full transition-all duration-300;
+        width: 6px;
+        height: 6px;
+        background: rgba(255, 255, 255, 0.5);
+    }
+
+    .intro-frame__dot--active {
+        @apply bg-gold;
+        width: 20px;
+    }
+
+    /* ── Why Us — Bento Grid ──────────────────── */
+
+    .why-us-grid {
+        @apply grid gap-16 items-center;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .why-us-pillars {
+        @apply flex flex-col;
+        gap: 1.75rem;
+    }
+
+    /* Grid container */
+    .bento-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 190px 190px 130px;
+        gap: 10px;
+        border-radius: 12px;
+        overflow: hidden;
+    }
+
+    /* Posisi tiap cell */
+    .bento-cell--main      { grid-column: 1; grid-row: 1 / 3; }
+    .bento-cell--top-right { grid-column: 2; grid-row: 1;     }
+    .bento-cell--mid-right { grid-column: 2; grid-row: 2;     }
+    .bento-cell--bot-left  { grid-column: 1; grid-row: 3;     }
+    .bento-cell--bot-right { grid-column: 2; grid-row: 3;     }
+
+    /* Base cell */
+    .bento-cell {
+        @apply relative overflow-hidden bg-charcoal-800;
+        border-radius: 8px;
+    }
+
+    /* Gambar */
+    .bento-img {
+        @apply w-full h-full object-cover block;
+        opacity: 0.78;
+        transition: opacity 0.45s ease, transform 0.45s ease;
+    }
+
+    .bento-cell:hover .bento-img {
+        opacity: 1;
+        transform: scale(1.06);
+    }
+
+    /* Gradient overlay bawah */
+    .bento-overlay {
+        @apply absolute inset-0 pointer-events-none;
+        background: linear-gradient(
+            to top,
+            rgba(0, 0, 0, 0.72) 0%,
+            rgba(0, 0, 0, 0.08) 45%,
+            transparent 100%
+        );
+    }
+
+    /* Aksen garis emas kiri pada cell utama */
+    .bento-cell--main::after {
+        content: '';
+        @apply absolute left-0 top-0 bottom-0;
+        width: 3px;
+        background: linear-gradient(to bottom, theme('colors.gold.DEFAULT'), #f0c040, theme('colors.gold.DEFAULT'));
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .bento-cell--main:hover::after {
+        opacity: 1;
+    }
+
+    /* Label teks overlay */
+    .bento-label {
+        @apply absolute font-mono uppercase;
+        bottom: 12px;
+        left: 12px;
+        font-size: 9px;
+        font-weight: 700;
+        letter-spacing: 0.18em;
+        color: rgba(255, 255, 255, 0.88);
+        background: rgba(0, 0, 0, 0.35);
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+        padding: 3px 8px;
+        border-radius: 3px;
+        border-left: 2px solid theme('colors.gold.DEFAULT');
+        line-height: 1.4;
+    }
+}
+
+/* ── Responsive (di luar @layer agar tidak di-purge) ── */
+
+@media (max-width: 1024px) {
+    .why-us-grid {
+        grid-template-columns: 1fr !important;
+        gap: 3rem !important;
+    }
+}
+
+@media (max-width: 767px) {
+    .intro-frame__nav {
+        width: 2rem;
+        height: 2rem;
+    }
+
+    .intro-frame__nav svg {
+        width: 1rem;
+        height: 1rem;
+    }
+
+    .intro-frame__nav--prev { left: 0.5rem; }
+    .intro-frame__nav--next { right: 0.5rem; }
+
+    .intro-frame__dots {
+        bottom: 0.5rem;
+    }
+}
+
+@media (max-width: 640px) {
+    .bento-grid {
+        grid-template-rows: 140px 140px 110px;
+        gap: 6px;
+    }
+
+    .bento-label {
+        font-size: 8px;
+        padding: 2px 6px;
+        bottom: 8px;
+        left: 8px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .bento-img,
+    .bento-cell--main::after,
+    .intro-frame__track {
+        transition: none !important;
+    }
+}

@@ -1,0 +1,66 @@
+/* ── _about.css ───────────────────────────────── */
+
+@layer components {
+
+    /* Timeline */
+    .timeline {
+        @apply relative;
+    }
+
+    .timeline__spine {
+        @apply absolute left-1/2 -translate-x-px top-0 bottom-0
+               w-px bg-gold/15 hidden md:block;
+    }
+
+    .timeline__dot {
+        /*
+         * PENTING: shadow-sm dihapus.
+         * box-shadow pada position:absolute menciptakan stacking context baru
+         * yang menyebabkan position:fixed (modal/lightbox) ter-clip
+         * dan tidak bisa keluar ke viewport — tampak sebagai layar hitam.
+         */
+        @apply hidden md:flex absolute left-1/2 -translate-x-1/2
+               w-4 h-4 bg-gold rounded-full
+               border-4 border-white z-10;
+    }
+
+    .timeline__card {
+        @apply bg-white border border-gray-100 p-6
+               hover:border-gold/25 transition-colors duration-300;
+    }
+
+    .timeline__year {
+        @apply font-mono text-gold text-xs tracking-widest uppercase;
+    }
+
+    .timeline__title {
+        @apply font-display text-xl font-semibold text-charcoal mt-2 mb-2;
+    }
+
+    .timeline__desc {
+        @apply text-charcoal-500 text-sm leading-relaxed;
+    }
+
+    /* Vision/Mission */
+    .vm-section {
+        @apply grid md:grid-cols-2 gap-12 lg:gap-20;
+    }
+
+    .vm-block__label {
+        @apply font-mono text-gold text-xs tracking-[0.2em] uppercase mb-4 block;
+    }
+
+    .vm-block__title {
+        @apply font-display text-2xl md:text-3xl font-bold text-charcoal leading-snug mb-5;
+    }
+
+    /* Mission list */
+    .mission-item {
+        @apply flex gap-4 items-start;
+    }
+
+    .mission-item__num {
+        @apply flex-shrink-0 w-8 h-8 bg-gold/10
+               flex items-center justify-center;
+    }
+}
