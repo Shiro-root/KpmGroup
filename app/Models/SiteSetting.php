@@ -4,76 +4,45 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
 
 class SiteSetting extends Model
 {
     protected $fillable = ['key', 'value', 'group', 'type'];
 
-    protected $casts = [
-        'value' => 'string',
-    ];
+    protected $casts = ['value' => 'string'];
 
-    /** Memo per-request agar tidak menyentuh cache store berulang kali. */
-    protected static ?array $memo = null;
+    private const CACHE_KEY = 'site_settings_all';
 
-    protected static function booted(): void
-    {
-        // Seeder / updateOrCreate langsung tetap membersihkan cache.
-        static::saved(fn () => static::flush());
-        static::deleted(fn () => static::flush());
-    }
-
-    /**
-     * Semua setting (key => value) dalam 1 query, lalu di-cache.
-     */
+    /** Semua setting dalam satu query + satu cache entry. */
     public static function allCached(): array
     {
-        if (static::$memo !== null) {
-            return static::$memo;
-        }
-
         try {
-            return static::$memo = Cache::rememberForever('site_settings.all', function () {
-                return static::query()->pluck('value', 'key')->all();
+            return Cache::remember(self::CACHE_KEY, 3600, function () {
+                return DB::table('site_settings')->pluck('value', 'key')->all();
             });
-        } catch (\Exception $e) {
-            // Tabel belum ada / DB belum siap — jangan cache kegagalan.
+        } catch (\Throwable $e) {
             return [];
         }
     }
 
-    /**
-     * Get a setting value by key with optional default.
-     */
     public static function get(string $key, mixed $default = null): mixed
     {
-        $value = static::allCached()[$key] ?? null;
-
-        return $value ?? $default;
+        return static::allCached()[$key] ?? $default;
     }
 
-    /**
-     * Set a setting value and clear its cache.
-     */
     public static function set(string $key, mixed $value, string $group = 'general', string $type = 'text'): void
     {
         static::setMany([$key => $value], $group, $type);
     }
 
-    /**
-     * Simpan banyak setting sekaligus (1 query upsert).
-     */
-    public static function setMany(array $values, string $group = 'general', string $type = 'text'): void
+    /** Simpan banyak key sekaligus (1 query upsert). */
+    public static function setMany(array $pairs, string $group = 'general', string $type = 'text'): void
     {
-        if (empty($values)) {
-            return;
-        }
-
         try {
             $now  = now();
             $rows = [];
-
-            foreach ($values as $key => $value) {
+            foreach ($pairs as $key => $value) {
                 $rows[] = [
                     'key'        => $key,
                     'value'      => (string) ($value ?? ''),
@@ -83,17 +52,12 @@ class SiteSetting extends Model
                     'updated_at' => $now,
                 ];
             }
-
-            static::upsert($rows, ['key'], ['value', 'group', 'type', 'updated_at']);
-            static::flush();
-        } catch (\Exception $e) {
-            // Silently fail if table doesn't exist yet
+            if ($rows) {
+                static::upsert($rows, ['key'], ['value', 'group', 'type', 'updated_at']);
+            }
+            Cache::forget(self::CACHE_KEY);
+        } catch (\Throwable $e) {
+            // tabel belum ada
         }
-    }
-
-    public static function flush(): void
-    {
-        static::$memo = null;
-        Cache::forget('site_settings.all');
     }
 }
