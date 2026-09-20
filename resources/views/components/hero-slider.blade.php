@@ -2,13 +2,13 @@
     Hero Slider Component
     @props:
       slides    array  [['image' => 'hero-1.jpg', 'alt' => 'opsional'], ...]
-      interval  int    jeda autoplay (ms)
+      interval  int    jeda autoplay (ms) — default 3500 (3,5 detik)
     Gambar diambil dari public/images/{image}
 --}}
 
 @props([
     'slides'   => [],
-    'interval' => 5000,
+    'interval' => 3500,
 ])
 
 @php $count = count($slides); @endphp

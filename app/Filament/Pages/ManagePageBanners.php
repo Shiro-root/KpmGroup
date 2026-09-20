@@ -5,6 +5,7 @@ namespace App\Filament\Pages;
 use App\Models\SiteSetting;
 use Filament\Notifications\Notification;
 use Filament\Pages\Page;
+use Livewire\Attributes\Locked;
 use Livewire\WithFileUploads;
 
 class ManagePageBanners extends Page
@@ -18,6 +19,13 @@ class ManagePageBanners extends Page
     protected static ?string $title           = 'Kelola Banner & Hero Slider';
 
     protected static string $view = 'filament.pages.manage-page-banners';
+
+    // URL halaman ini, disimpan saat mount() (request GET asli).
+    // Dipakai untuk redirect setelah simpan. JANGAN pakai request()->fullUrl()
+    // di dalam save(), karena saat itu request-nya adalah POST /livewire/update
+    // sehingga redirect akan nyasar ke endpoint internal Livewire (error/"mental").
+    #[Locked]
+    public string $pageUrl = '';
 
     // ── Hero Slider (Beranda) — dipindah dari Home settings ──
     public array $home_hero_images = [];
@@ -35,6 +43,8 @@ class ManagePageBanners extends Page
 
     public function mount(): void
     {
+        $this->pageUrl = request()->fullUrl();
+
         $raw = SiteSetting::get('home_hero_images', '');
         $this->home_hero_images = $raw ? (json_decode($raw, true) ?: []) : [];
 
@@ -82,6 +92,26 @@ class ManagePageBanners extends Page
 
         array_splice($this->home_hero_images, $index, 1);
         $this->home_hero_images = array_values($this->home_hero_images);
+    }
+
+    // Buang satu gambar hero yang baru dipilih (belum disimpan), mis. karena
+    // gagal validasi (>2 MB) atau salah pilih.
+    public function removeNewHeroUpload(int $index): void
+    {
+        $file = $this->home_hero_new_uploads[$index] ?? null;
+
+        if ($file) {
+            try {
+                $file->delete(); // hapus file sementara Livewire
+            } catch (\Throwable $e) {
+                // abaikan, file temp akan dibersihkan otomatis
+            }
+        }
+
+        unset($this->home_hero_new_uploads[$index]);
+        $this->home_hero_new_uploads = array_values($this->home_hero_new_uploads);
+        $this->resetErrorBag('home_hero_new_uploads.*');
+        $this->resetErrorBag('home_hero_new_uploads');
     }
 
     public function save(): void
@@ -145,6 +175,7 @@ class ManagePageBanners extends Page
             ->success()
             ->send();
 
-        $this->redirect(request()->fullUrl());
+        // Full page redirect ke URL halaman asli (bukan /livewire/update)
+        $this->redirect($this->pageUrl);
     }
 }
