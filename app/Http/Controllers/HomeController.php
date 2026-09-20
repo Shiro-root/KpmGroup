@@ -13,7 +13,19 @@ class HomeController extends Controller
         $get = fn(string $key, string $default = '') => SiteSetting::get($key, $default);
 
         $settings = [
-            // ── Hero ──
+            // ── Hero Slider ──
+            // Daftar nama file di public/images/, disimpan sebagai JSON di setting 'home_hero_images'.
+            // Jika belum diisi, fallback ke hero-bg.jpg.
+            'hero_slides' => (function () use ($get) {
+                $raw   = $get('home_hero_images', '');
+                $files = $raw ? json_decode($raw, true) : [];
+
+                return collect($files ?: ['hero-bg.jpg'])
+                    ->map(fn ($file) => ['image' => $file])
+                    ->all();
+            })(),
+
+            // ── Hero (lama — tidak dipakai lagi oleh slider, dibiarkan agar admin lama tidak error) ──
             'hero_title' => $get('home_hero_title', 'Membangun <span class="text-accent">Solusi</span><br>Energi Masa Depan'),
             'hero_subtitle' => $get('home_hero_subtitle', 'PT. Kurniawan Power Mandiri menghadirkan layanan konstruksi, engineering, dan inovasi yang terintegrasi.'),
 

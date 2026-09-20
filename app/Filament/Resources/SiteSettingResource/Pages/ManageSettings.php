@@ -40,6 +40,10 @@ class ManageSettings extends Page
     public ?string $home_cta_subtitle = null;
     public ?string $home_established_year = null;
 
+    // Slider hero (banner utama di halaman Home)
+    public array $home_hero_images = [];
+    public array $home_hero_new_uploads = [];
+
     // Tagline & gambar intro
     public ?string $home_intro_tagline_line1 = null;
     public ?string $home_intro_tagline_line2 = null;
@@ -135,6 +139,10 @@ class ManageSettings extends Page
         $this->home_cta_title = $get('home_cta_title');
         $this->home_cta_subtitle = $get('home_cta_subtitle');
         $this->home_established_year = $get('home_established_year', '2010');
+
+        $rawHero = $get('home_hero_images', '');
+        $this->home_hero_images = $rawHero ? (json_decode($rawHero, true) ?: []) : [];
+
         $this->home_intro_tagline_line1 = $get('home_intro_tagline_line1', 'Satu Group,');
         $this->home_intro_tagline_line2 = $get('home_intro_tagline_line2', 'Lima Kekuatan');
         $raw = $get('home_intro_images', '');
@@ -290,7 +298,9 @@ class ManageSettings extends Page
         $this->milestones = array_values($this->milestones);
     }
 
-    // Helper methode hapus & tambah slide
+    // ── Slide helpers ──────────────────────────────────────────
+
+    // Hapus slide section intro
     public function removeIntroImage(int $index): void
     {
         $filename = $this->home_intro_images[$index] ?? null;
@@ -304,6 +314,22 @@ class ManageSettings extends Page
 
         array_splice($this->home_intro_images, $index, 1);
         $this->home_intro_images = array_values($this->home_intro_images);
+    }
+
+    // Hapus slide hero
+    public function removeHeroImage(int $index): void
+    {
+        $filename = $this->home_hero_images[$index] ?? null;
+
+        if ($filename) {
+            $path = base_path('images/' . $filename);
+            if (file_exists($path)) {
+                @unlink($path);
+            }
+        }
+
+        array_splice($this->home_hero_images, $index, 1);
+        $this->home_hero_images = array_values($this->home_hero_images);
     }
 
     // ── Why Us point helpers ───────────────────────────────────
@@ -325,6 +351,7 @@ class ManageSettings extends Page
     {
         try {
             $this->validate([
+                'home_hero_new_uploads.*'  => 'nullable|image|max:2048',
                 'home_intro_new_uploads.*' => 'nullable|image|max:2048',
                 'home_whyus_img_1_preview' => 'nullable|image|max:2048',
                 'home_whyus_img_2_preview' => 'nullable|image|max:2048',
@@ -332,6 +359,8 @@ class ManageSettings extends Page
                 'home_whyus_img_4_preview' => 'nullable|image|max:2048',
                 'home_whyus_img_5_preview' => 'nullable|image|max:2048',
             ], [
+                'home_hero_new_uploads.*.image' => 'Setiap slide hero harus berupa gambar (JPG, PNG, atau WebP).',
+                'home_hero_new_uploads.*.max' => 'Ukuran tiap gambar hero maksimal 2 MB.',
                 'home_intro_new_uploads.*.image' => 'Setiap slide harus berupa gambar (JPG, PNG, atau WebP).',
                 'home_intro_new_uploads.*.max' => 'Ukuran tiap gambar maksimal 2 MB.',
                 'home_whyus_img_1_preview.image' => 'Gambar 1 (Construction) harus berupa gambar (JPG, PNG, atau WebP).',
@@ -425,6 +454,26 @@ class ManageSettings extends Page
             }
         }
 
+        // ── Slide hero ──
+        if (!empty($this->home_hero_new_uploads)) {
+            $dest = base_path('images');
+            if (!is_dir($dest)) {
+                mkdir($dest, 0755, true);
+            }
+
+            foreach ($this->home_hero_new_uploads as $upload) {
+                $ext = strtolower($upload->getClientOriginalExtension());
+                $name = 'hero-' . uniqid() . '.' . $ext;
+
+                copy($upload->getRealPath(), $dest . DIRECTORY_SEPARATOR . $name);
+                $this->home_hero_images[] = $name;
+            }
+            $this->home_hero_new_uploads = [];
+        }
+
+        $this->set('home_hero_images', json_encode(array_values($this->home_hero_images)), 'home');
+
+        // ── Slide section intro ──
         if (!empty($this->home_intro_new_uploads)) {
             foreach ($this->home_intro_new_uploads as $upload) {
                 $ext = strtolower($upload->getClientOriginalExtension());

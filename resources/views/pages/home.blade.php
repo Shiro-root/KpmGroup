@@ -3,14 +3,8 @@
     seoDescription="PT. Kurniawan Power Mandiri (KPM Group) — Solusi terpadu konstruksi, engineering, riset, agrikultur, dan pengadaan untuk industri Indonesia."
 >
 
-    {{-- HERO --}}
-    <x-hero
-        :title="$settings['hero_title']"
-        :subtitle="$settings['hero_subtitle']"
-        :cta="true"
-        size="full"
-        bgImage="images/hero-bg.jpg"
-    />
+    {{-- HERO SLIDER --}}
+    <x-hero-slider :slides="$settings['hero_slides']" />
 
     {{-- STATS BAR --}}
     <div class="stats-bar" data-aos="fade-up" data-aos-offset="0">

@@ -3,13 +3,10 @@
     :seoDescription="'Foto kegiatan dan dokumentasi ' . $divisionLabel . ' — PT. Kurniawan Power Mandiri'"
 >
 
-    <x-hero
-        :title="'Dokumentasi <span class=\'text-accent\'>' . $divisionLabel . '</span>'"
-        subtitle="Foto kegiatan dan portofolio divisi KPM Group."
-        :cta="false"
-        size="md"
-    />
-
+    <x-page-banner
+    :title="'Dokumentasi <span class=\'text-accent\'>' . $divisionLabel . '</span>'"
+    subtitle="Foto kegiatan dan portofolio divisi KPM Group."
+/>
     <section
         class="section-pad bg-white"
         aria-labelledby="divdoc-page-heading"

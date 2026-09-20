@@ -1,23 +1,13 @@
 {{--
     Navbar Component
-    - Transparent over hero, solid on scroll
-    - Alpine.js for mobile menu + scroll detection
-    - Active route detection
+    - Putih solid (clean), selalu tampil di atas
+    - Alpine.js untuk mobile menu (state mobileMenuOpen ada di <body> layout)
+    - Deteksi route aktif
 --}}
 
 <header
     id="navbar"
-    x-data="{
-        scrolled: false,
-        init() {
-            this.scrolled = window.scrollY > 60;
-            window.addEventListener('scroll', () => {
-                this.scrolled = window.scrollY > 60;
-            });
-        }
-    }"
-    :class="scrolled ? 'is-solid' : 'is-transparent'"
-    class="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
+    class="is-solid fixed top-0 left-0 right-0 z-50 border-b border-gray-100 transition-all duration-300"
 >
     <div class="container-kpm">
         <nav class="flex items-center justify-between h-[72px] md:h-20">
@@ -48,10 +38,7 @@
                 <li>
                     <a
                         href="{{ route($link['route']) }}"
-                        class="nav-link
-                               {{ request()->routeIs($link['route']) ? 'active' : '' }}
-                               {{ 'nav-link--' . (request()->routeIs('home') ? 'light' : 'dark') }}"
-                        :class="scrolled ? 'nav-link--dark' : 'nav-link--light'"
+                        class="nav-link nav-link--dark {{ request()->routeIs($link['route']) ? 'active' : '' }}"
                     >
                         {{ $link['label'] }}
                     </a>
@@ -69,8 +56,7 @@
                        hover:shadow-lg hover:shadow-gold/20"
             >
                 Hubungi Kami
-                <svg class="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1"
-                     fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                           d="M17 8l4 4m0 0l-4 4m4-4H3"/>
                 </svg>
@@ -79,10 +65,8 @@
             {{-- ── Hamburger ── --}}
             <button
                 @click="mobileMenuOpen = !mobileMenuOpen"
-                class="md:hidden p-2 -mr-2"
-                :class="scrolled ? 'text-charcoal' : 'text-white'"
+                class="md:hidden p-2 -mr-2 text-charcoal"
                 aria-label="Toggle navigation"
-                aria-expanded="false"
                 :aria-expanded="mobileMenuOpen"
             >
                 <svg x-show="!mobileMenuOpen" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">

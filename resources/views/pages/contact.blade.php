@@ -2,12 +2,10 @@
     seoTitle="Kontak"
     seoDescription="Hubungi KPM Group via WhatsApp, Instagram, TikTok, atau email."
 >
-    <x-hero
-        title="<span class='text-accent'>Hubungi</span> Kami"
-        subtitle="Tim KPM Group siap mendiskusikan kebutuhan proyek Anda. Pilih saluran yang paling mudah."
-        :cta="false"
-        size="md"
-    />
+  <x-page-banner
+    title="<span class='text-accent'>Hubungi</span> Kami"
+    subtitle="Tim KPM Group siap mendiskusikan kebutuhan proyek Anda. Pilih saluran yang paling mudah."
+/>
 
     <section class="section-pad" aria-labelledby="contact-heading">
         <div class="container-kpm">

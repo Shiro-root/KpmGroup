@@ -1,6 +1,6 @@
 <form wire:submit.prevent="saveHome" class="space-y-6 pb-20">
 
-    @include('filament.settings.home.hero')
+    @include('filament.settings.home.hero-slides')
     @include('filament.settings.home.stats')
     @include('filament.settings.home.intro')
     @include('filament.settings.home.divisions')

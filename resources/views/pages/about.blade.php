@@ -2,11 +2,9 @@
     seoTitle="Tentang Kami"
     seoDescription="Profil PT. Kurniawan Power Mandiri — visi, misi, perjalanan perusahaan, dan dokumen legalitas KPM Group."
 >
-    <x-hero
+    <x-page-banner
         title="Tentang <span class='text-accent'>KPM Group</span>"
         subtitle="Membangun kepercayaan melalui kualitas, inovasi, dan integritas lebih dari satu dekade."
-        :cta="false"
-        size="md"
     />
 
     @include('partials.about.profile',                ['settings'        => $settings])
