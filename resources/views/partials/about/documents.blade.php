@@ -87,95 +87,141 @@
 
     {{-- ── Lightbox Modal ── --}}
     <div
-        x-show="activeDoc"
+    x-show="activeDoc"
+    x-transition:enter="transition ease-out duration-200"
+    x-transition:enter-start="opacity-0"
+    x-transition:enter-end="opacity-100"
+    x-transition:leave="transition ease-in duration-150"
+    x-transition:leave-start="opacity-100"
+    x-transition:leave-end="opacity-0"
+    class="modal-backdrop"
+    @click.self="activeDoc = null"
+    @keydown.escape.window="activeDoc = null"
+    role="dialog"
+    :aria-modal="!!activeDoc"
+    aria-labelledby="doc-modal-title"
+    style="display:none"
+    x-data="pdfViewer()"
+    x-init="$watch('activeDoc', doc => doc && loadDoc(doc))"
+>
+    <div
+        class="modal-box max-w-3xl max-h-[92vh] flex flex-col"
+        @click.stop
         x-transition:enter="transition ease-out duration-200"
-        x-transition:enter-start="opacity-0"
-        x-transition:enter-end="opacity-100"
-        x-transition:leave="transition ease-in duration-150"
-        x-transition:leave-start="opacity-100"
-        x-transition:leave-end="opacity-0"
-        class="modal-backdrop"
-        @click.self="activeDoc = null"
-        @keydown.escape.window="activeDoc = null"
-        role="dialog"
-        :aria-modal="!!activeDoc"
-        aria-labelledby="doc-modal-title"
-        style="display:none"
+        x-transition:enter-start="opacity-0 scale-95"
+        x-transition:enter-end="opacity-100 scale-100"
     >
-        <div
-            class="modal-box max-w-2xl max-h-[90vh] flex flex-col"
-            @click.stop
-            x-transition:enter="transition ease-out duration-200"
-            x-transition:enter-start="opacity-0 scale-95"
-            x-transition:enter-end="opacity-100 scale-100"
-        >
-            {{-- Header --}}
-            <div class="modal-header flex-shrink-0">
-                <div>
-                    <p class="label-mono text-[10px] mb-1"
-                       x-text="activeDoc?.category"></p>
-                    <h3 class="font-display text-xl font-bold text-charcoal"
-                        id="doc-modal-title"
-                        x-text="activeDoc?.name">
-                    </h3>
-                </div>
-                <button
-                    @click="activeDoc = null"
-                    class="modal-close"
-                    aria-label="Tutup"
-                >
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                              d="M6 18L18 6M6 6l12 12"/>
-                    </svg>
-                </button>
+        {{-- Header --}}
+        <div class="modal-header flex-shrink-0">
+            <div>
+                <p class="label-mono text-[10px] mb-1" x-text="activeDoc?.category"></p>
+                <h3 class="font-display text-xl font-bold text-charcoal" id="doc-modal-title" x-text="activeDoc?.name"></h3>
+            </div>
+            <button @click="activeDoc = null" class="modal-close" aria-label="Tutup">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+
+        <div class="h-[2px] bg-gold flex-shrink-0"></div>
+
+        {{-- Preview area --}}
+        <div class="modal-body overflow-auto flex-1 bg-gray-100/70 flex justify-center py-8">
+
+            {{-- Loading skeleton --}}
+            <div x-show="loading" class="flex flex-col items-center justify-center gap-3 py-16">
+                <div class="w-8 h-8 border-2 border-gold border-t-transparent rounded-full animate-spin"></div>
+                <p class="text-xs text-gray-400 font-mono uppercase tracking-wide">Memuat dokumen…</p>
             </div>
 
-            {{-- Gold divider --}}
-            <div class="h-[2px] bg-gold flex-shrink-0"></div>
+            {{-- PDF canvas, styled like a paper sheet --}}
+            <template x-if="activeDoc?.file_type === 'pdf'">
+                <canvas x-ref="canvas" x-show="!loading" class="shadow-lg bg-white max-w-full h-auto"></canvas>
+            </template>
 
-            {{-- Preview --}}
-            <div class="modal-body overflow-auto flex-1">
-                <template x-if="activeDoc?.file_type === 'pdf'">
-                    <iframe
-                        :src="activeDoc?.file_url"
-                        class="w-full h-[60vh] border-0"
-                        title="Document Preview"
-                    ></iframe>
-                </template>
-                <template x-if="activeDoc?.file_type !== 'pdf'">
-                    <img
-                        :src="activeDoc?.file_url"
-                        :alt="activeDoc?.name"
-                        class="w-full h-auto"
-                        loading="lazy"
-                    >
-                </template>
-            </div>
+            {{-- Images --}}
+            <template x-if="activeDoc?.file_type !== 'pdf'">
+                <img :src="activeDoc?.file_url" :alt="activeDoc?.name" x-show="!loading"
+                     class="max-w-full h-auto shadow-lg bg-white" loading="lazy" @load="loading = false">
+            </template>
+        </div>
 
-            {{-- Footer --}}
-            <div class="modal-footer flex-shrink-0">
-                <button
-                    @click="activeDoc = null"
-                    class="btn-outline-dark text-sm px-5 py-2.5"
-                >
-                    Tutup
-                </button>
-                <a
-                    :href="activeDoc?.file_url"
-                    download
-                    class="btn-primary text-sm px-5 py-2.5"
-                    rel="noopener noreferrer"
-                >
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                              d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
-                    </svg>
-                    Download
-                </a>
-            </div>
+        {{-- Custom controls bar — only for PDFs --}}
+        <div x-show="activeDoc?.file_type === 'pdf' && !loading"
+             class="flex items-center justify-center gap-4 py-3 border-t border-gray-100 flex-shrink-0 bg-white">
+            <button @click="prevPage" :disabled="currentPage <= 1"
+                    class="p-2 text-charcoal hover:text-gold disabled:opacity-30 disabled:cursor-not-allowed transition-colors">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                </svg>
+            </button>
+            <span class="text-xs font-mono text-gray-500 tracking-wide">
+                Halaman <span x-text="currentPage" class="text-charcoal font-semibold"></span> / <span x-text="totalPages"></span>
+            </span>
+            <button @click="nextPage" :disabled="currentPage >= totalPages"
+                    class="p-2 text-charcoal hover:text-gold disabled:opacity-30 disabled:cursor-not-allowed transition-colors">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                </svg>
+            </button>
+        </div>
 
+        {{-- Footer --}}
+        <div class="modal-footer flex-shrink-0">
+            <button @click="activeDoc = null" class="btn-outline-dark text-sm px-5 py-2.5">Tutup</button>
+            <a :href="activeDoc?.file_url" download class="btn-primary text-sm px-5 py-2.5" rel="noopener noreferrer">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                </svg>
+                Download
+            </a>
         </div>
     </div>
+</div>
 
+<script>
+function pdfViewer() {
+    return {
+        pdfDoc: null,
+        currentPage: 1,
+        totalPages: 1,
+        loading: true,
+
+        async loadDoc(doc) {
+            this.loading = true;
+            if (doc.file_type !== 'pdf') return; // image handles its own @load
+
+            this.currentPage = 1;
+            this.pdfDoc = await pdfjsLib.getDocument(doc.file_url).promise;
+            this.totalPages = this.pdfDoc.numPages;
+            await this.renderPage();
+            this.loading = false;
+        },
+
+        async renderPage() {
+            const page = await this.pdfDoc.getPage(this.currentPage);
+            const canvas = this.$refs.canvas;
+            const context = canvas.getContext('2d');
+
+            const viewport = page.getViewport({ scale: 1.4 });
+            canvas.width = viewport.width;
+            canvas.height = viewport.height;
+
+            await page.render({ canvasContext: context, viewport }).promise;
+        },
+
+        prevPage() {
+            if (this.currentPage <= 1) return;
+            this.currentPage--;
+            this.renderPage();
+        },
+        nextPage() {
+            if (this.currentPage >= this.totalPages) return;
+            this.currentPage++;
+            this.renderPage();
+        },
+    };
+}
+</script>
 </section>

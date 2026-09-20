@@ -38,12 +38,12 @@ class AdminPanelProvider extends PanelProvider
                 'primary' => Color::hex('#C88719'),
             ])
             ->brandName('KPM Group')
-            ->renderHook(
-                PanelsRenderHook::HEAD_END,
-                fn () => new \Illuminate\Support\HtmlString('
-                    <link rel="stylesheet" href="/css/filament/filament/filament-custom.css">
-                ')
-            )
+           ->renderHook(
+    PanelsRenderHook::HEAD_END,
+    fn () => new \Illuminate\Support\HtmlString('
+        <link rel="stylesheet" href="/css/filament/filament-custom.css">
+    ')
+)
             ->navigationGroups([
                 NavigationGroup::make('Konten Website'),
                 NavigationGroup::make('Pengaturan')->collapsed(),

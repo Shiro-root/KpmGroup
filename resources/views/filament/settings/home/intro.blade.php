@@ -81,8 +81,34 @@
 
         <hr class="border-dashed border-gray-200 dark:border-white/10">
 
-        {{-- 3. SLIDE GAMBAR (style .kpm-slide-* ada di filament-custom.css) --}}
+                {{-- 3. SLIDE GAMBAR SECTION INTRO --}}
         <div>
+            <style>
+                .kpm-slide-title { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: .1em; color: #9ca3af; margin-bottom: 12px }
+                .kpm-slide-title small { text-transform: none; letter-spacing: normal; font-weight: 400; margin-left: 4px }
+                .kpm-slide-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 180px)); gap: 12px; margin-bottom: 16px }
+                .kpm-slide-card { display: flex; flex-direction: column; gap: 6px }
+                .kpm-slide-thumb { position: relative; width: 100%; aspect-ratio: 4/3; border-radius: 8px; overflow: hidden; border: 1px solid #e5e7eb; background: #f3f4f6 }
+                .kpm-slide-thumb--new { border: 2px solid #fbbf24 }
+                .kpm-slide-thumb img { width: 100%; height: 100%; object-fit: cover; display: block }
+                .kpm-slide-badge { position: absolute; top: 6px; left: 6px; font: 10px monospace; background: rgba(0, 0, 0, .6); color: #fff; padding: 2px 6px; border-radius: 4px }
+                .kpm-slide-badge--new { background: #f59e0b }
+                .kpm-slide-remove { width: 100%; padding: 4px 8px; font-size: 12px; color: #dc2626; background: transparent; border: 1px solid #fecaca; border-radius: 6px; cursor: pointer; transition: background .15s }
+                .kpm-slide-remove:hover { background: #fef2f2 }
+                .kpm-slide-empty { grid-column: 1/-1; text-align: center; padding: 32px 0; font-size: 14px; color: #9ca3af; border: 1px dashed #e5e7eb; border-radius: 8px }
+                .kpm-slide-upload { display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; font-size: 14px; font-weight: 500; color: #d97706; border: 1px dashed #fbbf24; border-radius: 8px; cursor: pointer; transition: background .15s }
+                .kpm-slide-upload:hover { background: #fffbeb }
+                .kpm-slide-hint { font-size: 12px; color: #9ca3af; margin-top: 8px }
+
+                .dark .kpm-slide-thumb { border-color: rgba(255, 255, 255, .1); background: rgba(255, 255, 255, .05) }
+                .dark .kpm-slide-thumb--new { border-color: #f59e0b }
+                .dark .kpm-slide-remove { color: #f87171; border-color: rgba(248, 113, 113, .3) }
+                .dark .kpm-slide-remove:hover { background: rgba(248, 113, 113, .1) }
+                .dark .kpm-slide-empty { border-color: rgba(255, 255, 255, .1) }
+                .dark .kpm-slide-upload { color: #fbbf24; border-color: rgba(251, 191, 36, .5) }
+                .dark .kpm-slide-upload:hover { background: rgba(251, 191, 36, .1) }
+            </style>
+
             <p class="kpm-slide-title">
                 Slide Gambar Section Intro
                 <small>— tampil bergantian (carousel) di sisi kanan tagline</small>
@@ -92,6 +118,7 @@
                 @forelse ($home_intro_images as $i => $img)
                     <div class="kpm-slide-card" wire:key="intro-img-{{ $i }}-{{ md5($img) }}">
                         <div class="kpm-slide-thumb">
+                            
                             <img src="{{ $this->imageUrl($img) }}" alt="Slide {{ $i + 1 }}" loading="lazy"
                                 decoding="async">
                             <span class="kpm-slide-badge">#{{ $i + 1 }}</span>
