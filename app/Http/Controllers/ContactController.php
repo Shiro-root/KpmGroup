@@ -22,7 +22,8 @@ class ContactController extends Controller
             'tiktok_handle'     => SiteSetting::get('contact_tiktok_handle',     'kpmgroup'),
             'maps_embed_url'    => SiteSetting::get('contact_maps_embed_url',    ''),
             'office_hours'      => SiteSetting::get('contact_office_hours',      'Senin–Sabtu, 08.00–17.00 WIB'),
-        ];
+            'banner_image'       => SiteSetting::get('contact_banner_image', ''),
+            ];
 
         return view('pages.contact', compact('settings'));
     }

@@ -5,8 +5,8 @@
   <x-page-banner
     title="<span class='text-accent'>Hubungi</span> Kami"
     subtitle="Tim KPM Group siap mendiskusikan kebutuhan proyek Anda. Pilih saluran yang paling mudah."
+    :bgImage="$settings['banner_image'] ? 'images/' . $settings['banner_image'] : null"
 />
-
     <section class="section-pad" aria-labelledby="contact-heading">
         <div class="container-kpm">
 

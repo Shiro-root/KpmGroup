@@ -20,6 +20,7 @@ class ServicesController extends Controller
             'page_subtitle' => SiteSetting::get('services_page_subtitle', 'Lima divisi terintegrasi yang siap memberikan solusi menyeluruh.'),
             'cta_title'     => SiteSetting::get('services_cta_title',     'Diskusikan Kebutuhan Proyek Anda'),
             'cta_subtitle'  => SiteSetting::get('services_cta_subtitle',  'Hubungi tim KPM Group dan dapatkan konsultasi awal tanpa biaya.'),
+            'banner_image'  => SiteSetting::get('services_banner_image', ''),  
         ];
 
         return view('pages.services', compact('services', 'settings'));

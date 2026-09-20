@@ -41,6 +41,7 @@ class AboutController extends Controller
             'business_field' => SiteSetting::get('about_business_field', 'Konstruksi, Engineering, R&D, Agrikultur, Procurement'),
             'operation_area' => SiteSetting::get('about_operation_area', 'Indonesia'),
             'milestones'     => json_decode(SiteSetting::get('milestones', '[]'), true) ?: [],
+            'banner_image'   => SiteSetting::get('about_banner_image', ''),   // ← tambahkan
         ];
 
         return view('pages.about', compact('documents', 'documentations', 'settings'));

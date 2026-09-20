@@ -3,9 +3,10 @@
     seoDescription="Layanan KPM Group: Construction, Engineering, Research & Development, Farm, dan Procurement."
 >
     <x-page-banner
-        :title="$settings['page_title']"
-        :subtitle="$settings['page_subtitle']"
-    />
+    :title="$settings['page_title']"
+    :subtitle="$settings['page_subtitle']"
+    :bgImage="$settings['banner_image'] ? 'images/' . $settings['banner_image'] : null"
+/>
 
     @include('partials.services.all-services', ['services' => $services])
 
