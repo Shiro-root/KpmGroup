@@ -1,14 +1,9 @@
-{{--
-    Hero Slider Component
-    @props:
-      slides    array  [['image' => 'hero-1.jpg', 'alt' => 'opsional'], ...]
-      interval  int    jeda autoplay (ms) — default 3500 (3,5 detik)
-    Gambar diambil dari public/images/{image}
---}}
-
 @props([
     'slides'   => [],
     'interval' => 3500,
+    'title'    => null,
+    'subtitle' => null,
+    'cta'      => true,
 ])
 
 @php $count = count($slides); @endphp
@@ -46,13 +41,13 @@
     <h1 class="sr-only">PT. Kurniawan Power Mandiri — KPM Group</h1>
 
     {{-- Track --}}
-    <div class="h-[240px] sm:h-[360px] md:h-[480px] lg:h-[560px]">
+    <div class="relative h-[480px] sm:h-[540px] md:h-[600px] lg:h-[680px]">
         <div
             class="flex h-full transition-transform duration-500 ease-in-out"
             :style="`transform: translateX(-${current * 100}%)`"
         >
             @foreach ($slides as $i => $slide)
-            <div class="w-full h-full flex-shrink-0">
+            <div class="w-full h-full flex-shrink-0 relative">
                 <img
                     src="{{ asset('images/' . $slide['image']) }}"
                     alt="{{ $slide['alt'] ?? 'Banner KPM Group ' . ($i + 1) }}"
@@ -60,9 +55,56 @@
                     loading="{{ $i === 0 ? 'eager' : 'lazy' }}"
                     draggable="false"
                 >
+                {{-- Gradient overlay supaya teks tetap terbaca di atas foto apapun --}}
+                <div class="absolute inset-0 bg-gradient-to-r
+                            from-charcoal/90 via-charcoal/55 to-charcoal/20"
+                     aria-hidden="true"></div>
             </div>
             @endforeach
         </div>
+
+        {{-- ── Overlay: Judul, Subjudul, CTA ── --}}
+        @if ($title)
+        <div class="absolute inset-0 z-[5] flex items-center pointer-events-none">
+            <div class="container-kpm w-full">
+                <div class="max-w-2xl pointer-events-auto">
+
+                    <div class="eyebrow mb-5" data-aos="fade-right" data-aos-delay="80">
+                        <div class="eyebrow__line"></div>
+                        <span class="label-mono">PT. Kurniawan Power Mandiri</span>
+                    </div>
+
+                    <h2 class="heading-hero mb-5" data-aos="fade-up" data-aos-delay="150">
+                        {!! $title !!}
+                    </h2>
+
+                    @if ($subtitle)
+                    <p class="text-gray-200 text-base md:text-lg leading-relaxed mb-8 max-w-lg"
+                       data-aos="fade-up" data-aos-delay="230">
+                        {{ $subtitle }}
+                    </p>
+                    @endif
+
+                    @if ($cta)
+                    <div class="flex flex-col sm:flex-row gap-4"
+                         data-aos="fade-up" data-aos-delay="310">
+                        <a href="{{ route('contact') }}" class="btn-primary">
+                            Hubungi Kami
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                      d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                            </svg>
+                        </a>
+                        <a href="{{ route('services') }}" class="btn-outline">
+                            Layanan Kami
+                        </a>
+                    </div>
+                    @endif
+
+                </div>
+            </div>
+        </div>
+        @endif
     </div>
 
     @if ($count > 1)
@@ -71,7 +113,7 @@
         type="button"
         @click="prev(); restart()"
         aria-label="Slide sebelumnya"
-        class="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 z-10
+        class="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 z-20
                w-10 h-10 sm:w-12 sm:h-12 rounded-full
                flex items-center justify-center
                bg-black/40 text-white backdrop-blur-sm
@@ -87,7 +129,7 @@
         type="button"
         @click="next(); restart()"
         aria-label="Slide berikutnya"
-        class="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 z-10
+        class="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 z-20
                w-10 h-10 sm:w-12 sm:h-12 rounded-full
                flex items-center justify-center
                bg-black/40 text-white backdrop-blur-sm
@@ -99,7 +141,7 @@
     </button>
 
     {{-- Dots --}}
-    <div class="absolute bottom-4 left-1/2 -translate-x-1/2 z-10 flex items-center gap-2">
+    <div class="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2">
         <template x-for="i in total" :key="i">
             <button
                 type="button"

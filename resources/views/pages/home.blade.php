@@ -4,7 +4,11 @@
 >
 
     {{-- HERO SLIDER --}}
-    <x-hero-slider :slides="$settings['hero_slides']" />
+    <x-hero-slider
+    :slides="$settings['hero_slides']"
+    :title="$settings['hero_title']"
+    :subtitle="$settings['hero_subtitle']"
+/>
 
     {{-- STATS BAR --}}
     <div class="stats-bar" data-aos="fade-up" data-aos-offset="0">
